@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import Image from "next/image";
 
@@ -17,18 +16,6 @@ const Empresa = ({ data }) => {
           {data.text}
         </h1>
       </div>
-=======
-import React, { useState, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-
-const Empresa = ({ data }) => {
-  return (
-    <div className="flex w-full mx-auto mb-6 h-1/2 p-32">
-      <img src={data.image.url} className="rounded-3xl h-3/4 mr-20" />
-      <h1 className="justify-center items-center flex text-theme-black font-questrial text-3xl font-regular">
-        {data.text}
-      </h1>
->>>>>>> b2b14e2b2ab51cdc249a4b8de6523961620aa546
     </div>
   );
 };

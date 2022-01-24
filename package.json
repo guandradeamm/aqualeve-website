@@ -7,10 +7,7 @@
     "convert-svg": "svgr --no-dimensions --out-dir ./components/images ./assets/images"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@headlessui/react": "^1.4.3",
-=======
->>>>>>> b2b14e2b2ab51cdc249a4b8de6523961620aa546
     "@svgr/webpack": "^6.1.2",
     "graphql": "^16.1.0",
     "graphql-request": "^3.7.0",

@@ -1,5 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
 import { GrInstagram } from "react-icons/gr";
 import Image from "next/image";
 
@@ -31,22 +30,6 @@ const Hero = () => {
         </a>
       </div>
     </>
-=======
-import { Banner } from "../images";
-
-const Hero = () => {
-  return (
-    <div className="w-full h-screen relative ">
-      <div className="w-1/2 h-4/5 flex items-center justify-center absolute   ">
-        <h1 className="z-10 text-7xl font-livvic font-semibold italic text-theme-middle-blue w-4/5 ">
-          A água mais pura de
-          <span className=" text-theme-dark-blue"> Minas</span>
-        </h1>
-      </div>
-
-      <Banner className="w-full -mt-32" />
-    </div>
->>>>>>> b2b14e2b2ab51cdc249a4b8de6523961620aa546
   );
 };
 

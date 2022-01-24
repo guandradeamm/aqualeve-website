@@ -142,11 +142,7 @@ function FaleConosco() {
                   placeholder="DIGITE SUA MENSAGEM"
                   divStyle="h-full "
                   onChange={valueInput}
-<<<<<<< HEAD
                   value={user.mensagem}
-=======
-                  // value={user.mensagem}
->>>>>>> b2b14e2b2ab51cdc249a4b8de6523961620aa546
                 ></Input>
               </div>
             </div>

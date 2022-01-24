@@ -9,7 +9,6 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 const Empresa = ({ content }) => {
-<<<<<<< HEAD
   const component = "empresa";
   return (
     <div id={component} className="h-full w-full">
@@ -30,16 +29,6 @@ const Empresa = ({ content }) => {
           <Swiper
             id={`${component}-swiper-screens`}
             className="h-full w-full hidden lg:block"
-=======
-  return (
-    <div id="empresa" className="h-screen w-screen">
-      <div className="h-full w-4/5 flex justify-center flex-col m-auto p-20">
-        <div className="h-1/5 flex items-end">
-          <h1 className="text-5xl text-theme-green font-questrial">EMPRESA</h1>
-        </div>
-        <div className="h-4/5 flex items-center justify-center w-full">
-          <Swiper
->>>>>>> b2b14e2b2ab51cdc249a4b8de6523961620aa546
             // install Swiper modules
             modules={[Navigation, Pagination, A11y, Autoplay]}
             spaceBetween={50}
@@ -60,7 +49,6 @@ const Empresa = ({ content }) => {
               </SwiperSlide>
             ))}
           </Swiper>
-<<<<<<< HEAD
           <Swiper
             id={`${component}-swiper-mobile`}
             className="h-full w-full lg:hidden"
@@ -77,8 +65,6 @@ const Empresa = ({ content }) => {
               </SwiperSlide>
             ))}
           </Swiper>
-=======
->>>>>>> b2b14e2b2ab51cdc249a4b8de6523961620aa546
         </div>
       </div>
     </div>
