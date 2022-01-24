@@ -74,18 +74,18 @@ const Header = ({ content }) => {
           >
             <div
               ref={ref}
-              className=" bg-theme-light-green h-1/2 w-3/5 top-0 right-0 z-40 p-4 flex flex-col absolute  rounded-bl-3xl"
+              className="bg-theme-light-green h-full w-full md:h-1/2 md:w-3/5 top-0 right-0 z-40 py-8 flex flex-col absolute  rounded-bl-3xl"
             >
               <div className="flex flex-col items-center ">
                 {navigationLinks.map(({ name, id, href }) => (
                   <div
                     key={id}
-                    className="cursor-pointer  text-theme-light-white uppercase hover:text-theme-light-white transition-all ease-in-out mb-6 p-2 "
+                    className="cursor-pointer text-theme-light-white uppercase hover:text-theme-light-white transition-all ease-in-out mb-8 p-2"
                   >
                     <Link passHref href={`${href}`}>
                       <span
                         onClick={() => setIsOpen(!isOpen)}
-                        className="font-mont text-xs font-semibold sm:text-base"
+                        className="font-mont text-xl font-semibold sm:text-2xl md:text-xl"
                       >
                         {name}
                       </span>
@@ -93,7 +93,7 @@ const Header = ({ content }) => {
                   </div>
                 ))}
                 <a>
-                  <button className="uppercase text-theme-white bg-theme-yellow rounded-full p-2 font-mont font-semibold text-xs sm:text-base sm:p-4">
+                  <button className="uppercase text-theme-white bg-theme-yellow rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4">
                     envie seu currículo
                   </button>
                 </a>
