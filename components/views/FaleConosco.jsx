@@ -142,7 +142,7 @@ function FaleConosco() {
                   placeholder="DIGITE SUA MENSAGEM"
                   divStyle="h-full "
                   onChange={valueInput}
-                  // value={user.mensagem}
+                  value={user.mensagem}
                 ></Input>
               </div>
             </div>

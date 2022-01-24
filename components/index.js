@@ -1,4 +1,4 @@
-export { default as Layout } from "./layout/Layout";
+export { default as Header } from "./layout/Header";
 export { default as Hero } from "./views/Hero";
 export { default as Empresa } from "./views/Empresa";
 export { default as FaleConosco } from "./views/FaleConosco";

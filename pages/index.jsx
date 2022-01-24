@@ -4,14 +4,16 @@ import {
   FaleConosco,
   Localizacao,
   Produtos,
+  Header,
 } from "../components";
 import { graphCMSClient } from "../services";
 import { gql } from "graphql-request";
 
-function Home({ empresas, produtos, localAssets }) {
+function Home({ empresas, produtos, localAssets, navigationLinks }) {
   return (
     <>
-      <main className="pt-32 ">
+      <Header content={navigationLinks} />
+      <main className="pt-20 sm:pt-24 md:pt-32 lg:pt-36 w-screen h-screen">
         <Hero />
         <Empresa content={empresas} />
         <Produtos content={produtos} />
@@ -22,40 +24,46 @@ function Home({ empresas, produtos, localAssets }) {
   );
 }
 export async function getStaticProps() {
-  const { empresas, produtos, localAssets } = await graphCMSClient.request(gql`
-    query GetProps {
-      empresas {
-        id
-        name
-        text
-        image {
+  const { empresas, produtos, localAssets, navigationLinks } =
+    await graphCMSClient.request(gql`
+      query GetProps {
+        empresas {
           id
-          url
-        }
-      }
-      produtos {
-        id
-        name
-        text
-        composition
-        image {
-          url
-        }
-        chemicals {
           name
-          value
+          text
+          image {
+            id
+            url
+          }
+        }
+        produtos {
+          id
+          name
+          text
+          composition
+          image {
+            url
+          }
+          chemicals {
+            name
+            value
+          }
+        }
+        localAssets(first: 1) {
+          locationVideo {
+            height
+            width
+            url
+          }
+        }
+        navigationLinks {
+          name
+          href
+          id
         }
       }
-      localAssets(first: 1) {
-        locationVideo {
-          height
-          width
-          url
-        }
-      }
-    }
-  `);
-  return { props: { empresas, produtos, localAssets } };
+    `);
+  return { props: { empresas, produtos, localAssets, navigationLinks } };
 }
 
 export default Home;
