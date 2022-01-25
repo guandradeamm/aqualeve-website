@@ -24,8 +24,8 @@ const Localizacao = ({ content }) => {
                 playsinline={true}
               />
             </div>
-            <div class="flex flex-col items-center justify-center bg-theme-white h-full w-[45%] p-6">
-              <div class="overflow-hidden h-2/3 w-full">
+            <div className="flex flex-col items-center justify-center bg-theme-white h-full w-[45%] p-6">
+              <div className="overflow-hidden h-2/3 w-full">
                 <iframe
                   width="100%"
                   height="100%"

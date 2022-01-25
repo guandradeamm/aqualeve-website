@@ -11,16 +11,20 @@ import { gql } from "graphql-request";
 
 function Home({ empresas, produtos, localAssets, navigationLinks }) {
   return (
-    <>
+    <div className="pt-20 sm:pt-24 md:pt-32 lg:pt-36">
       <Header content={navigationLinks} />
-      <main className="pt-20 sm:pt-24 md:pt-32 lg:pt-36 w-screen h-screen">
-        <Hero />
-        <Empresa content={empresas} />
+      <main className="h-screen w-screen snap-y snap-mandatory overflow-scroll">
+        <div className="snap-start w-full h-full">
+          <Hero />
+        </div>
+        <div className="snap-start w-full h-full">
+          <Empresa content={empresas} />
+        </div>
         <Produtos content={produtos} />
         <Localizacao content={localAssets} />
         <FaleConosco />
       </main>
-    </>
+    </div>
   );
 }
 export async function getStaticProps() {
@@ -45,6 +49,7 @@ export async function getStaticProps() {
             url
           }
           chemicals {
+            id
             name
             value
           }

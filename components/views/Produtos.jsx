@@ -31,11 +31,9 @@ const Produtos = ({ content }) => {
             }}
             navigation
             autoplay={{ delay: 3500 }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
           >
             {content.map((slide) => (
-              <SwiperSlide>
+              <SwiperSlide key={slide?.id}>
                 <Produto data={slide} />
               </SwiperSlide>
             ))}

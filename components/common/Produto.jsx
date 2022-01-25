@@ -17,8 +17,8 @@ const Produto = ({ data }) => {
             {data.composition}
           </h3>
           <ul className="text-theme-white w-full font-mont font-semibold text-xs font-regular">
-            {data.chemicals.map(({ name, value }) => (
-              <li className="w-full flex justify-between">
+            {data.chemicals.map(({ name, value, id }) => (
+              <li key={id} className="w-full flex justify-between">
                 <span>{name}</span>
                 <span>{value}</span>
               </li>

@@ -40,11 +40,9 @@ const Empresa = ({ content }) => {
             }}
             navigation
             autoplay
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
           >
             {content.map((slide) => (
-              <SwiperSlide>
+              <SwiperSlide key={slide?.id}>
                 <Slide data={slide} />
               </SwiperSlide>
             ))}
@@ -56,11 +54,9 @@ const Empresa = ({ content }) => {
             spaceBetween={50}
             slidesPerView={1}
             autoplay
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
           >
             {content.map((slide) => (
-              <SwiperSlide>
+              <SwiperSlide key={slide?.id}>
                 <Slide data={slide} />
               </SwiperSlide>
             ))}
