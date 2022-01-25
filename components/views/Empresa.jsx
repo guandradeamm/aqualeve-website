@@ -14,13 +14,15 @@ const Empresa = ({ content }) => {
     <div id={component} className="h-screen w-screen">
       <div
         id={`${component}-container`}
-        className="h-full w-full lg:w-4/5 flex flex-col justify-between m-auto p-6 lg:p-20"
+        className="h-full w-full lg:w-4/5 flex flex-col justify-between m-auto p-8 lg:p-20"
       >
         <div
           id={`${component}-heading`}
           className="lg:h-1/5 flex items-center lg:items-end mb-10 lg:mb-0"
         >
-          <h1 className="text-3xl text-theme-green font-questrial">EMPRESA</h1>
+          <h1 className="lg:text-5xl text-3xl  text-theme-green font-questrial">
+            EMPRESA
+          </h1>
         </div>
         <div
           id={`${component}-slide`}

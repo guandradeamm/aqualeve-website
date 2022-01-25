@@ -20,7 +20,9 @@ function Home({ empresas, produtos, localAssets, navigationLinks }) {
         <div className="snap-start">
           <Empresa content={empresas} />
         </div>
-        <Produtos content={produtos} />
+        <div className="snap-start">
+          <Produtos content={produtos} />
+        </div>
         <Localizacao content={localAssets} />
         <FaleConosco />
       </main>
