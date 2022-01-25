@@ -13,11 +13,11 @@ function Home({ empresas, produtos, localAssets, navigationLinks }) {
   return (
     <div className="pt-20 sm:pt-24 md:pt-32 lg:pt-36">
       <Header content={navigationLinks} />
-      <main className="h-screen w-screen snap-y snap-mandatory overflow-scroll">
-        <div className="snap-start w-full h-full">
+      <main className="h-screen w-screen snap-y snap-mandatory overflow-scroll overflow-x-hidden">
+        <div className="snap-start">
           <Hero />
         </div>
-        <div className="snap-start w-full h-full">
+        <div className="snap-start">
           <Empresa content={empresas} />
         </div>
         <Produtos content={produtos} />

@@ -1,11 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Livvic:ital,wght@0,300;0,400;0,600;0,700;1,600&family=Montserrat:wght@300;400;600;700;800;900&family=Questrial&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Livvic:ital,wght@1,600&family=Montserrat:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Livvic:ital,wght@1,600&family=Montserrat:wght@600&family=Questrial&display=swap");
+html {
+  scroll-behavior: smooth !important;
+}
 
 @layer components {
   .bulletInactive {
@@ -24,10 +25,6 @@
 
 :root {
   --swiper-theme-color: theme("colors.theme-light-blue") !important;
-}
-
-html {
-  scroll-behavior: smooth !important;
 }
 
 a {

@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 
 const Produtos = ({ content }) => {
   return (
-    <div id="produtos" className="h-screen w-screen bg-theme-light-white">
+    <div id="produtos" className="h-full w-full bg-theme-light-white">
       <div className="h-full w-4/5 flex justify-center flex-col m-auto p-20 ">
         <div className="h-1/5 flex items-end ">
           <h1 className="text-5xl text-theme-green font-questrial">PRODUTOS</h1>

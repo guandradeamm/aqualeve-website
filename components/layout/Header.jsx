@@ -67,41 +67,36 @@ const Header = ({ content }) => {
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
       >
-        {(ref) => (
-          <div
-            className="lg:hidden overflow-hidden relative h-screen w-screen "
-            id="mobile-menu"
-          >
-            <div
-              ref={ref}
-              className="bg-theme-light-green h-full w-full md:h-1/2 md:w-3/5 top-0 right-0 z-40 py-8 flex flex-col absolute  rounded-bl-3xl"
-            >
-              <div className="flex flex-col items-center ">
-                {navigationLinks.map(({ name, id, href }) => (
-                  <div
-                    key={id}
-                    className="cursor-pointer text-theme-light-white uppercase hover:text-theme-light-white transition-all ease-in-out mb-8 p-2"
-                  >
-                    <Link passHref href={`${href}`}>
-                      <span
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="font-mont text-xl font-semibold sm:text-2xl md:text-xl"
-                      >
-                        {name}
-                      </span>
-                    </Link>
-                  </div>
-                ))}
-                <a>
-                  <button className="uppercase text-theme-white bg-theme-yellow rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4">
-                    envie seu currículo
-                  </button>
-                </a>
-              </div>
+        <div
+          className="lg:hidden overflow-hidden relative h-full w-full "
+          id="mobile-menu"
+        >
+          <div className="bg-theme-light-green h-full w-full md:h-1/2 md:w-3/5 top-0 right-0 z-40 py-8 flex flex-col absolute  rounded-bl-3xl">
+            <div className="flex flex-col items-center ">
+              {navigationLinks.map(({ name, id, href }) => (
+                <div
+                  key={id}
+                  className="cursor-pointer text-theme-light-white uppercase hover:text-theme-light-white transition-all ease-in-out mb-8 p-2"
+                >
+                  <Link passHref href={`${href}`}>
+                    <span
+                      onClick={() => setIsOpen(!isOpen)}
+                      className="font-mont text-xl font-semibold sm:text-2xl md:text-xl"
+                    >
+                      {name}
+                    </span>
+                  </Link>
+                </div>
+              ))}
+              <a>
+                <button className="uppercase text-theme-white bg-theme-yellow rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4">
+                  envie seu currículo
+                </button>
+              </a>
             </div>
-            <div className="h-screen w-screen bg-theme-black opacity-40"></div>
           </div>
-        )}
+          <div className="h-screen w-screen bg-theme-black opacity-40"></div>
+        </div>
       </Transition>
     </nav>
   );

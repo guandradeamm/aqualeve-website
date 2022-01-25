@@ -4,7 +4,7 @@ import Player from "react-player";
 const Localizacao = ({ content }) => {
   const { locationVideo } = content[0];
   return (
-    <div id="localizacao" className="h-screen w-screen ">
+    <div id="localizacao" className="h-full w-full ">
       <div className="h-full w-4/5 flex  flex-col m-auto p-20 ">
         <div className="h-1/5 flex items-end ">
           <h1 className="text-5xl text-theme-green font-questrial">

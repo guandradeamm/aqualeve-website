@@ -11,7 +11,7 @@ import "swiper/css/scrollbar";
 const Empresa = ({ content }) => {
   const component = "empresa";
   return (
-    <div id={component} className="h-full w-full">
+    <div id={component} className="h-screen w-screen">
       <div
         id={`${component}-container`}
         className="h-full w-full lg:w-4/5 flex flex-col justify-between m-auto p-6 lg:p-20"
