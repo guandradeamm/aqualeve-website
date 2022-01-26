@@ -17,6 +17,7 @@ module.exports = {
         "theme-orange": "#FB8500",
         "theme-white": "#FFFFFF",
         "theme-light-white": "#F4FAFD",
+        "theme-light-gray": "#F4FAFC",
         "theme-black": "#000000",
       },
       fontFamily: {

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Produto = ({ data }) => {
-  const component = "produto";
+  const component = `produto-${data?.id}`;
   return (
     <div
       id={`${component}`}
@@ -13,7 +13,7 @@ const Produto = ({ data }) => {
       ></div>
       <div
         id={`${component}-foreground`}
-        className="xl:w-4/5 w-full h-3/5 lg:p-8 py-4 flex flex-col items-center lg:justify-center justify-between  text-center  lg:rounded-l-xl rounded-3xl bg-red-400  lg:z-10"
+        className="xl:w-4/5 w-full h-4/5 lg:p-8 py-4 flex flex-col items-center lg:justify-center justify-between  text-center  lg:rounded-l-xl rounded-3xl bg-theme- lg:z-10 bg-theme-lightest-blue"
       >
         <h1 className="xl:text-3xl lg:text-2xl text-xl w-4/5  mb-6 font-mont uppercase text-theme-middle-blue font-semibold">
           {data.name}

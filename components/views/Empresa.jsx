@@ -21,7 +21,7 @@ const Empresa = ({ content }) => {
       >
         <div
           id={`${component}-heading`}
-          className="lg:h-1/5 flex items-center lg:items-end mb-10 lg:mb-0"
+          className="h-1/6 lg:h-1/5 flex items-center lg:items-end mb-10 lg:mb-0"
         >
           <h1 className="lg:text-5xl text-3xl  text-theme-green font-questrial">
             EMPRESA
@@ -29,7 +29,7 @@ const Empresa = ({ content }) => {
         </div>
         <div
           id={`${component}-slide`}
-          className="h-full lg:h-4/5 flex items-center justify-center w-full"
+          className="h-5/6 lg:h-4/5 flex items-center justify-center w-full"
         >
           <Swiper
             id={`${component}-swiper-screens`}

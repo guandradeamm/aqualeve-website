@@ -7,25 +7,28 @@ const Localizacao = ({ content }) => {
   return (
     <div
       id={component}
-      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl"
+      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl "
     >
-      <div className="h-full lg:w-4/5 w-full flex  flex-col m-auto justify-center xl:p-20 p-8 ">
+      <div
+        id={`${component}-container`}
+        className="h-full w-full lg:w-4/5 flex flex-col justify-between m-auto p-8 lg:p-20"
+      >
         <div
           id={`${component}-heading`}
-          className="lg:h-1/5 flex lg:items-end items-center mb-10 lg:mb-0"
+          className="h-1/6 lg:h-1/5 flex lg:items-end items-center  lg:mb-0"
         >
           <h1 className="lg:text-5xl text-3xl text-theme-green font-questrial">
             LOCALIZAÇÃO
           </h1>
         </div>
-        <div id={`${component}-main`} className="h-4/5 w-full flex">
+        <div id={`${component}-main`} className="h-5/6 lg:h-4/5 w-full flex">
           <div
             id={`${component}-componentVideo`}
             className="h-full w-full lg:flex lg:items-center lg:justify-between"
           >
             <div
               id={`${component}-video`}
-              className="lg:w-[45%] w-100% lg:h-full h-1/4 bg-theme-white flex items-center justify-center"
+              className="lg:w-[45%] w-full lg:h-full h-2/5 bg-theme-white flex items-center justify-center"
             >
               <Player
                 url={locationVideo.url}
@@ -39,7 +42,7 @@ const Localizacao = ({ content }) => {
             </div>
             <div
               id={`${component}-componentMap`}
-              className="flex flex-col items-center justify-center bg-theme-white lg:h-full h-4/5 lg:w-[45%] w-[100%] lg:p-6"
+              className="flex flex-col items-center justify-center bg-theme-white lg:h-full h-3/5 lg:w-[45%] w-full lg:p-6"
             >
               <div
                 id={`${component}-map`}

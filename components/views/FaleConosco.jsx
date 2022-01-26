@@ -81,10 +81,13 @@ function FaleConosco() {
       id={component}
       className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl bg-theme-light-white "
     >
-      <div className="h-full lg:w-4/5 w-full flex  flex-col m-auto justify-center xl:p-20 p-8 ">
+      <div
+        id={`${component}-container`}
+        className="h-full w-full lg:w-4/5 flex flex-col justify-between m-auto p-8 lg:p-20"
+      >
         <div
           id={`${component}-heading`}
-          className="lg:h-1/5 flex lg:items-end items-center mb-10 lg:mb-0"
+          className="h-1/6 lg:h-1/5 flex lg:items-end items-center lg:mb-0"
         >
           <h1 className="lg:text-5xl text-3xl text-theme-green font-questrial uppercase">
             fale conosco
@@ -101,14 +104,20 @@ function FaleConosco() {
           ""
         )}
 
-        <form name="form1" id="form1" method="post" onSubmit={addUser}>
+        <form
+          name="form1"
+          id="form1"
+          method="post"
+          onSubmit={addUser}
+          className=" w-full h-5/6 lg:h-4/5 "
+        >
           <div
             id={`${component}-main`}
-            className=" w-full lg:flex  lg:h-4/5  h:full lg:mt-20 "
+            className="w-full h-full flex flex-col-reverse lg:flex-row"
           >
             <div
-              id={`${component}-input`}
-              className=" lg:w-1/2 w-full lg:h-full h-1/5 flex flex-col "
+              id={`${component}-inputs`}
+              className="w-full h-1/2 lg:w-1/2 lg:h-full flex flex-col"
             >
               <div className="lg:mt-14 mt-0">
                 <Input
@@ -158,26 +167,34 @@ function FaleConosco() {
                   value={user.mensagem}
                 ></Input>
               </div>
+              <button
+                type="submit"
+                value="enviar"
+                className="lg:hidden rounded-full uppercase bg-theme-yellow hover:bg-theme-orange lg:w-3/5 w-4/5 lg:h-20 h-8 text-theme-white lg:font-semibold font-medium lg:text-xl text-base font-mont lg:mt-14 mt-4 lg:ml-14 ml-8"
+              >
+                enviar mensagem
+              </button>
             </div>
             <div
-              id={`${component}-contat`}
-              className="h-full  lg:w-1/2 w-full lg:ml-14 align-center justify-center flex flex-col font-questrial font-normal"
+              id={`${component}-contact`}
+              className="h-1/2 lg:h-full lg:w-1/2 w-full lg:ml-14 items-center justify-center flex flex-col font-questrial font-normal mb-8 lg:mb-0"
             >
-              <Contact className="w-1/4 items-center flex justify-center h-1/4" />
-              <div className="h-1/4 w-full rounded-3xl bg-theme-dark-blue text-theme-white flex  flex-col justify-between lg:p-8 p-2 ">
-                <p className="text-theme-white lg:text-2xl text-base flex  lg:ml-8 ml-4 ">
-                  <ImPhone className="text-theme-light-blue lg:text-3xl text-base lg:mr-10 mr-4" />
+              <Contact className="h-3/4 w-full" />
+
+              <div className="h-1/4 w-11/12 lg:w-full rounded-2xl bg-theme-dark-blue text-theme-white flex  flex-col justify-between lg:p-8 p-2 text-sm ">
+                <p className="text-theme-white lg:text-2xl flex lg:ml-8 ml-4 ">
+                  <ImPhone className="text-theme-light-blue lg:text-3xl lg:mr-10 mr-4" />
                   31-3798-2045 / 31-99909-4098
                 </p>
-                <p className="text-theme-white lg:text-2xl text-base flex  lg:ml-8 ml-4 ">
-                  <GrMail className="text-theme-light-blue lg:text-3xl text-base lg:mr-10 mr-4" />
+                <p className="text-theme-white lg:text-2xl flex lg:ml-8 ml-4 ">
+                  <GrMail className="text-theme-light-blue lg:text-3xl lg:mr-10 mr-4" />
                   contatoaqualeve@gmail.com
                 </p>
               </div>
               <button
                 type="submit"
                 value="enviar"
-                className="rounded-full uppercase bg-theme-yellow hover:bg-theme-orange lg:w-3/5 w-4/5 lg:h-20 h-8 text-theme-white lg:font-semibold font-medium lg:text-xl text-base font-mont lg:mt-14 mt-4 lg:ml-14 ml-8"
+                className="hidden lg:block rounded-full uppercase bg-theme-yellow hover:bg-theme-orange lg:w-3/5 w-4/5 lg:h-20 h-8 text-theme-white lg:font-semibold font-medium lg:text-xl text-base font-mont lg:mt-14 mt-4 lg:ml-14 ml-8"
               >
                 enviar mensagem
               </button>
