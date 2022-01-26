@@ -28,7 +28,7 @@ const Produtos = ({ content }) => {
         </div>
         <div
           id={`${component}-slide`}
-          className="h-5/6 lg:w-4/5 flex items-center justify-center w-full 
+          className="h-5/6 lg:w-full flex items-center justify-center w-full  
         "
         >
           <Swiper

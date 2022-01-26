@@ -126,19 +126,19 @@ function FaleConosco() {
                   id="name"
                   inputType="input"
                   placeholder="DIGITE SEU NOME"
-                  divStyle="lg:h-16 h-8 "
+                  divStyle="h-8 lg:h-12 xl:16  "
                   onChange={valueInput}
                   // value={user.name}
                 ></Input>
               </div>
-              <div className="flex items-center justify-between w-full lg:mt-14 mt-2">
+              <div className="flex items-center justify-between w-full mt-2 lg:mt-8 xl:mt-14">
                 <Input
                   type="text"
                   name="telefone"
                   id="telefone"
                   inputType="mask"
                   placeholder="(00)99999-9999"
-                  divStyle="lg:w-[35%] w-[39%]  lg:h-16 h-8"
+                  divStyle="w-[39%] lg:w-[47%] xl:w-[35%]h-8 lg:h-12 xl:16"
                   mask="(99) 99999-9999"
                   maskChar=""
                   onChange={valueInput}
@@ -150,19 +150,19 @@ function FaleConosco() {
                   id="email"
                   inputType="input"
                   placeholder="SEU E-MAIL"
-                  divStyle="w-[60%] lg:h-16 h-8"
+                  divStyle="w-[60%] lg:[52%] xl:[60%] h-8 lg:h-12 xl:16"
                   onChange={valueInput}
                   // value={user.email}
                 ></Input>
               </div>
-              <div className="lg:mt-14 mt-2">
+              <div className="mt-2 lg:mt-8 xl:mt-14 lg:h-full">
                 <Input
                   type="text"
                   name="mensagem"
                   id="mensagem"
                   inputType="textarea"
                   placeholder="DIGITE SUA MENSAGEM"
-                  divStyle="lg:h-full h-24 "
+                  divStyle="lg:h-full h-24"
                   onChange={valueInput}
                   value={user.mensagem}
                 ></Input>
@@ -179,22 +179,22 @@ function FaleConosco() {
               id={`${component}-contact`}
               className="h-1/2 lg:h-full lg:w-1/2 w-full lg:ml-14 items-center justify-center flex flex-col font-questrial font-normal mb-8 lg:mb-0"
             >
-              <Contact className="h-3/4 w-full" />
+              <Contact className="h-3/4 xl:h-4/5 w-full" />
 
-              <div className="h-1/4 w-11/12 lg:w-full rounded-2xl bg-theme-dark-blue text-theme-white flex  flex-col justify-between lg:p-8 p-2 text-sm ">
-                <p className="text-theme-white lg:text-2xl flex lg:ml-8 ml-4 ">
-                  <ImPhone className="text-theme-light-blue lg:text-3xl lg:mr-10 mr-4" />
+              <div className="h-1/4 w-11/12 lg:w-full rounded-2xl bg-theme-dark-blue text-theme-white flex  flex-col justify-between p-2 lg:p-4 text-sm lg:text-base xl:text-xl ">
+                <p className="text-theme-white flex  ml-4 ">
+                  <ImPhone className="text-theme-light-blue lg:text-lg xl:text-xl lg:mr-6 xl:mr-10 mr-4" />
                   31-3798-2045 / 31-99909-4098
                 </p>
-                <p className="text-theme-white lg:text-2xl flex lg:ml-8 ml-4 ">
-                  <GrMail className="text-theme-light-blue lg:text-3xl lg:mr-10 mr-4" />
+                <p className="text-theme-white flex ml-4">
+                  <GrMail className="text-theme-light-blue lg:text-lg xl:text-xl lg:mr-6 xl:mr-10 mr-4" />
                   contatoaqualeve@gmail.com
                 </p>
               </div>
               <button
                 type="submit"
                 value="enviar"
-                className="hidden lg:block rounded-full uppercase bg-theme-yellow hover:bg-theme-orange lg:w-3/5 w-4/5 lg:h-20 h-8 text-theme-white lg:font-semibold font-medium lg:text-xl text-base font-mont lg:mt-14 mt-4 lg:ml-14 ml-8"
+                className="hidden items-center lg:block rounded-full uppercase bg-theme-yellow hover:bg-theme-orange lg:w-4/5 xl:w-3/5 lg:h-1/6 xl:3/5 text-theme-white font-semibold text-xl font-mont lg:mt-8 xl:mt-14"
               >
                 enviar mensagem
               </button>
