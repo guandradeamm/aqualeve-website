@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="h-screen w-screen">
-      <div className="w-full h-1/2 lg:h-full relative my-20 lg:my-0">
+    <div className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl py-10 lg:py-0">
+      <div className="w-full h-1/2 lg:h-full relative mb-20 lg:my-0">
         <div className="w-full h-2/6 flex items-center justify-center absolute inset-0 ">
           <h1 className="w-4/5 z-10 text-3xl sm:text-4xl md:text-5xl lg:text-6xl lg:mt-40 lg:leading-snug font-livvic font-semibold italic text-theme-middle-blue">
             A água mais pura

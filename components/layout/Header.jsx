@@ -9,7 +9,7 @@ const Header = ({ content }) => {
   const navigationLinks = content;
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="w-full h-20 sm:h-24 md:h-32 lg:h-36 bg-theme-light-green border-theme-light-blue border-b-2 fixed z-50 inset-0">
+    <nav className="w-full h-base sm:h-sm md:h-md lg:h-lg bg-theme-light-green border-theme-light-blue border-b-2 fixed z-50 inset-0">
       <div className="w-11/12 lg:w-10/12 m-auto h-full flex items-center justify-between">
         <div id="logo">
           <Link href="/">

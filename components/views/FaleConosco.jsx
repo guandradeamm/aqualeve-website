@@ -6,6 +6,7 @@ import { ImPhone } from "react-icons/im";
 import * as yup from "yup";
 
 function FaleConosco() {
+  const component = "faleconosco";
   const [user, setUser] = useState({
     name: "",
     telefone: "",
@@ -76,10 +77,16 @@ function FaleConosco() {
   }
 
   return (
-    <div id="faleconosco" className="h-full w-full bg-theme-light-white ">
-      <div className="h-full w-4/5 flex  flex-col m-auto p-20 ">
-        <div className="h-1/5 flex items-end ">
-          <h1 className="text-5xl text-theme-green font-questrial uppercase">
+    <div
+      id={component}
+      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl bg-theme-light-white "
+    >
+      <div className="h-full lg:w-4/5 w-full flex  flex-col m-auto justify-center xl:p-20 p-8 ">
+        <div
+          id={`${component}-heading`}
+          className="lg:h-1/5 flex lg:items-end items-center mb-10 lg:mb-0"
+        >
+          <h1 className="lg:text-5xl text-3xl text-theme-green font-questrial uppercase">
             fale conosco
           </h1>
         </div>
@@ -95,28 +102,34 @@ function FaleConosco() {
         )}
 
         <form name="form1" id="form1" method="post" onSubmit={addUser}>
-          <div className="flex w-full  h-4/5 mt-20">
-            <div className=" w-1/2  h-full flex flex-col ">
-              <div className="mt-14">
+          <div
+            id={`${component}-main`}
+            className=" w-full lg:flex  lg:h-4/5  h:full lg:mt-20 "
+          >
+            <div
+              id={`${component}-input`}
+              className=" lg:w-1/2 w-full lg:h-full h-1/5 flex flex-col "
+            >
+              <div className="lg:mt-14 mt-0">
                 <Input
                   type="text"
                   name="name"
                   id="name"
                   inputType="input"
                   placeholder="DIGITE SEU NOME"
-                  divStyle="h-16"
+                  divStyle="lg:h-16 h-8 "
                   onChange={valueInput}
                   // value={user.name}
                 ></Input>
               </div>
-              <div className="flex items-center justify-between w-full mt-14">
+              <div className="flex items-center justify-between w-full lg:mt-14 mt-2">
                 <Input
                   type="text"
                   name="telefone"
                   id="telefone"
                   inputType="mask"
                   placeholder="(00)99999-9999"
-                  divStyle="w-[35%] h-16"
+                  divStyle="lg:w-[35%] w-[39%]  lg:h-16 h-8"
                   mask="(99) 99999-9999"
                   maskChar=""
                   onChange={valueInput}
@@ -128,40 +141,43 @@ function FaleConosco() {
                   id="email"
                   inputType="input"
                   placeholder="SEU E-MAIL"
-                  divStyle="w-[60%] h-16"
+                  divStyle="w-[60%] lg:h-16 h-8"
                   onChange={valueInput}
                   // value={user.email}
                 ></Input>
               </div>
-              <div className="mt-14 h-full">
+              <div className="lg:mt-14 mt-2">
                 <Input
                   type="text"
                   name="mensagem"
                   id="mensagem"
                   inputType="textarea"
                   placeholder="DIGITE SUA MENSAGEM"
-                  divStyle="h-full "
+                  divStyle="lg:h-full h-24 "
                   onChange={valueInput}
                   value={user.mensagem}
                 ></Input>
               </div>
             </div>
-            <div className="h-full w-1/2 ml-14 align-center justify-center flex flex-col font-questrial font-normal">
-              <Contact />
-              <div className="h-1/4 w-full rounded-3xl bg-theme-dark-blue text-theme-white flex  flex-col justify-between p-8  ">
-                <p className="text-theme-white text-2xl flex  ml-8 ">
-                  <ImPhone className="text-theme-light-blue text-3xl mr-10" />
+            <div
+              id={`${component}-contat`}
+              className="h-full  lg:w-1/2 w-full lg:ml-14 align-center justify-center flex flex-col font-questrial font-normal"
+            >
+              <Contact className="w-1/4 items-center flex justify-center h-1/4" />
+              <div className="h-1/4 w-full rounded-3xl bg-theme-dark-blue text-theme-white flex  flex-col justify-between lg:p-8 p-2 ">
+                <p className="text-theme-white lg:text-2xl text-base flex  lg:ml-8 ml-4 ">
+                  <ImPhone className="text-theme-light-blue lg:text-3xl text-base lg:mr-10 mr-4" />
                   31-3798-2045 / 31-99909-4098
                 </p>
-                <p className="text-theme-white text-2xl flex  ml-8 ">
-                  <GrMail className="text-theme-light-blue text-3xl mr-10" />
+                <p className="text-theme-white lg:text-2xl text-base flex  lg:ml-8 ml-4 ">
+                  <GrMail className="text-theme-light-blue lg:text-3xl text-base lg:mr-10 mr-4" />
                   contatoaqualeve@gmail.com
                 </p>
               </div>
               <button
                 type="submit"
                 value="enviar"
-                className="rounded-full uppercase bg-theme-yellow w-3/5 h-20 text-theme-white font-semibold text-xl font-mont mt-14 ml-14"
+                className="rounded-full uppercase bg-theme-yellow hover:bg-theme-orange lg:w-3/5 w-4/5 lg:h-20 h-8 text-theme-white lg:font-semibold font-medium lg:text-xl text-base font-mont lg:mt-14 mt-4 lg:ml-14 ml-8"
               >
                 enviar mensagem
               </button>

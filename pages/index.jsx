@@ -11,9 +11,9 @@ import { gql } from "graphql-request";
 
 function Home({ empresas, produtos, localAssets, navigationLinks }) {
   return (
-    <div className="pt-20 sm:pt-24 md:pt-32 lg:pt-36">
+    <div className="pt-base sm:pt-sm md:pt-md lg:pt-lg">
       <Header content={navigationLinks} />
-      <main className="h-screen w-screen snap-y snap-mandatory overflow-scroll overflow-x-hidden">
+      <main className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl snap-y snap-mandatory overflow-x-hidden scrollbar-thin scrollbar-track-theme-white scrollbar-thumb-theme-green">
         <div className="snap-start">
           <Hero />
         </div>
@@ -23,8 +23,12 @@ function Home({ empresas, produtos, localAssets, navigationLinks }) {
         <div className="snap-start">
           <Produtos content={produtos} />
         </div>
-        <Localizacao content={localAssets} />
-        <FaleConosco />
+        <div className="snap-start">
+          <Localizacao content={localAssets} />
+        </div>
+        <div className="snap-start">
+          <FaleConosco />
+        </div>
       </main>
     </div>
   );

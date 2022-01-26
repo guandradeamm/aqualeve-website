@@ -4,7 +4,7 @@ const Produto = ({ data }) => {
   const component = "produto";
   return (
     <div
-      id={`${component}-container`}
+      id={`${component}`}
       className="lg:max-w-full max-w-md lg:max-h-full h-full  flex flex-col items-center justify-between lg:justify-center lg:flex-row  lg:p-32  m-auto "
     >
       <div

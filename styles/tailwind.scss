@@ -8,6 +8,7 @@ html {
   scroll-behavior: smooth !important;
 }
 
+/* swiper configuration */
 @layer components {
   .bulletInactive {
     border-radius: 50%;
@@ -27,6 +28,29 @@ html {
   --swiper-theme-color: theme("colors.theme-light-blue") !important;
 }
 
+/* section content size calculations */
+.content-base {
+  height: calc(100vh - theme("spacing.base"));
+  width: 100vw;
+}
+.content-sm {
+  height: calc(100vh - theme("spacing.sm"));
+  width: 100vw;
+}
+.content-md {
+  height: calc(100vh - theme("spacing.md"));
+  width: 100vw;
+}
+.content-lg {
+  height: calc(100vh - theme("spacing.lg"));
+  width: 100vw;
+}
+.content-xl {
+  height: calc(100vh - theme("spacing.xl"));
+  width: 100vw;
+}
+
+/* global configs */
 a {
   color: inherit;
   text-decoration: none;

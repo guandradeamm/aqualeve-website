@@ -3,17 +3,30 @@ import Player from "react-player";
 
 const Localizacao = ({ content }) => {
   const { locationVideo } = content[0];
+  const component = "localizacao";
   return (
-    <div id="localizacao" className="h-full w-full ">
-      <div className="h-full w-4/5 flex  flex-col m-auto p-20 ">
-        <div className="h-1/5 flex items-end ">
-          <h1 className="text-5xl text-theme-green font-questrial">
+    <div
+      id={component}
+      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl"
+    >
+      <div className="h-full lg:w-4/5 w-full flex  flex-col m-auto justify-center xl:p-20 p-8 ">
+        <div
+          id={`${component}-heading`}
+          className="lg:h-1/5 flex lg:items-end items-center mb-10 lg:mb-0"
+        >
+          <h1 className="lg:text-5xl text-3xl text-theme-green font-questrial">
             LOCALIZAÇÃO
           </h1>
         </div>
-        <div className="h-4/5 w-full flex">
-          <div className="h-full w-full flex items-center justify-between">
-            <div className="w-[45%] h-full bg-theme-white flex items-center justify-center">
+        <div id={`${component}-main`} className="h-4/5 w-full flex">
+          <div
+            id={`${component}-componentVideo`}
+            className="h-full w-full lg:flex lg:items-center lg:justify-between"
+          >
+            <div
+              id={`${component}-video`}
+              className="lg:w-[45%] w-100% lg:h-full h-1/4 bg-theme-white flex items-center justify-center"
+            >
               <Player
                 url={locationVideo.url}
                 loop={true}
@@ -24,8 +37,14 @@ const Localizacao = ({ content }) => {
                 playsinline={true}
               />
             </div>
-            <div className="flex flex-col items-center justify-center bg-theme-white h-full w-[45%] p-6">
-              <div className="overflow-hidden h-2/3 w-full">
+            <div
+              id={`${component}-componentMap`}
+              className="flex flex-col items-center justify-center bg-theme-white lg:h-full h-4/5 lg:w-[45%] w-[100%] lg:p-6"
+            >
+              <div
+                id={`${component}-map`}
+                className="overflow-hidden h-2/3 w-full"
+              >
                 <iframe
                   width="100%"
                   height="100%"
@@ -35,7 +54,7 @@ const Localizacao = ({ content }) => {
                   allowFullScreen
                 ></iframe>
               </div>
-              <h4 className="font-questrial font-regular text-xl w-[500px] text-center mt-4">
+              <h4 className="font-questrial font-regular lg:text-xl text-base w-[100%] text-center mt-4">
                 Rua Antônio Luiz Aleixo, 02 Pontal - Ponte Nova-MG CEP:
                 35435-500
               </h4>

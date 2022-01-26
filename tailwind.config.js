@@ -1,7 +1,8 @@
 module.exports = {
-  mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -18,13 +19,22 @@ module.exports = {
         "theme-light-white": "#F4FAFD",
         "theme-black": "#000000",
       },
-      fontFamily: { mont: ["Montserrat", "sans-serif"] },
-      fontFamily: { livvic: ["Livvic", "sans-serif"] },
-      fontFamily: { questrial: ["Questrial", "sans-serif"] },
+      fontFamily: {
+        mont: ["Montserrat", "sans-serif"],
+        questrial: ["Questrial", "sans-serif"],
+        livvic: ["Livvic", "sans-serif"],
+      },
+      spacing: {
+        base: "5rem",
+        sm: "6rem",
+        md: "8rem",
+        lg: "9rem",
+        xl: "10rem",
+      },
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [require("tailwind-scrollbar")],
 };

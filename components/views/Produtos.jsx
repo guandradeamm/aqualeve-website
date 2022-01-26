@@ -10,7 +10,10 @@ import "swiper/css/pagination";
 const Produtos = ({ content }) => {
   const component = "produtos";
   return (
-    <div id={component} className="h-screen w-screen bg-theme-light-white">
+    <div
+      id={component}
+      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl bg-theme-light-white"
+    >
       <div
         id={`${component}-container`}
         className="h-full w-full lg:w-4/5 flex flex-col justify-center m-auto p-8 xl:p-20 "
