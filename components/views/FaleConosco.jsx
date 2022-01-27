@@ -79,7 +79,7 @@ function FaleConosco() {
   return (
     <div
       id={component}
-      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl bg-theme-light-white "
+      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl"
     >
       <div
         id={`${component}-container`}

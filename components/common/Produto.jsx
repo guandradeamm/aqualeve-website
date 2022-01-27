@@ -1,36 +1,72 @@
 import React from "react";
+import Image from "next/image";
 
 const Produto = ({ data }) => {
   const component = `produto-${data?.id}`;
   return (
     <div
       id={`${component}`}
-      className="lg:max-w-full max-w-md lg:max-h-full h-full  flex flex-col items-center justify-between lg:justify-center lg:flex-row  lg:p-16 xl:p-32 m-auto"
+      className="max-w-md h-full flex flex-col items-center justify-between m-auto relative
+      lg:max-w-none lg:w-full lg:justify-start lg:flex-row
+      xl:w-5/6 xl:justify-center"
     >
       <div
         id={`${component}-background`}
-        className="hidden lg:flex xl:w-3/5 lg:w-full  lg:h-full xl:h-3/5 lg:rounded-l-xl rounded-3xl bg-theme-lightest-blue lg:absolute "
+        className="hidden rounded-3xl bg-theme-lightest-blue -z-10
+        lg:block lg:w-2/3 lg:h-5/6 lg:rounded-l-xl lg:absolute lg:max-h-[450px]"
       ></div>
       <div
         id={`${component}-foreground`}
-        className="xl:w-4/5 w-full h-full lg:p-2 py-4 flex flex-col items-center lg:justify-center justify-between  text-center  lg:rounded-l-xl rounded-3xl bg-theme- lg:z-10 bg-theme-lightest-blue"
+        className="max-w-xs w-full h-full py-4 space-y-4 flex flex-col items-center justify-between text-center rounded-3xl bg-theme-lightest-blue
+        lg:max-w-none lg:h-5/6 lg:w-1/2 lg:p-6 lg:rounded-l-3xl lg:justify-start lg:max-h-[450px]
+        xl:w-1/2"
       >
-        <h1 className="xl:text-3xl lg:text-2xl text-xl w-4/5 lg:w-full mb-6 font-mont uppercase text-theme-middle-blue font-semibold">
-          {data.name}
-        </h1>
-        <h2 className="leading-loose text-theme-black font-questrial xl:text-md lg:text-sm font-regular w-full">
-          {data.text}
-        </h2>
-        <img
-          src={data.image.url}
-          className=" rounded-full h-2/5  border-white lg:hidden"
-        />
-
-        <div className=" w-full  mt-4 p-4 rounded-3xl lg:flex flex-col items-center  bg-theme-middle-blue hidden ">
-          <h3 className="text-theme-white font-mont font-semibold text-xs font-regular xl:mb-10 ">
+        <div
+          id={`${component}-info`}
+          className="h-1/2 w-4/5 flex flex-col space-y-2
+          lg:w-5/6 lg:h-1/2 lg:justify-center"
+        >
+          <h1
+            className="text-md font-mont uppercase text-theme-middle-blue font-semibold
+          sm:text-lg
+          lg:text-xl
+          xl:text-3xl"
+          >
+            {data.name}
+          </h1>
+          <h2
+            className="leading-relaxed text-theme-black text-md font-questrial font-regular text-center
+          sm:leading-loose sm:text-base 
+          lg:text-sm lg:leading-normal
+          xl:text-base"
+          >
+            {data.text}
+          </h2>
+        </div>
+        <div
+          id={`${component}-mobile-image`}
+          className="h-1/2 w-full relative
+          lg:hidden lg:absolute"
+        >
+          <Image
+            src={data.image.url}
+            layout="fill"
+            className="object-contain object-center w-full h-full"
+          />
+        </div>
+        <div
+          id={`${component}-chemicals`}
+          className="hidden w-5/6 h-1/2 p-4 rounded-3xl flex-col items-center bg-theme-middle-blue 
+          lg:flex lg:space-y-2"
+        >
+          <h3 className="text-theme-white font-mont font-semibold text-xs font-regular">
             {data.composition}
           </h3>
-          <ul className="text-theme-white w-full font-mont xl:font-semibold lg:font-medium text-xs font-regular ">
+          <ul
+            className="text-theme-white w-full font-mont text-xs font-regular
+          lg:font-medium lg:columns-2
+          xl:font-semibold"
+          >
             {data.chemicals.map(({ name, value, id }) => (
               <li key={id} className="w-full flex lg:justify-between ">
                 <span>{name}</span>
@@ -40,11 +76,13 @@ const Produto = ({ data }) => {
           </ul>
         </div>
       </div>
-
-      <img
-        src={data.image.url}
-        className="z-10 rounded-full xl:h-4/5 h-3/5 bg-theme-orange xl:border-[15px] lg:border-[5px] border-white hidden lg:block"
-      />
+      <div
+        className="aspect-square hidden h-full max-h-[500px] rounded-full border-white bg-theme-orange
+      lg:block lg:border-[5px] 
+      xl:border-[15px]"
+      >
+        <img src={data.image.url} className="object-contain w-full" />
+      </div>
     </div>
   );
 };

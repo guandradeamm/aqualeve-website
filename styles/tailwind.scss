@@ -29,25 +29,27 @@ html {
 }
 
 /* section content size calculations */
-.content-base {
-  height: calc(100vh - theme("spacing.base"));
-  width: 100vw;
-}
-.content-sm {
-  height: calc(100vh - theme("spacing.sm"));
-  width: 100vw;
-}
-.content-md {
-  height: calc(100vh - theme("spacing.md"));
-  width: 100vw;
-}
-.content-lg {
-  height: calc(100vh - theme("spacing.lg"));
-  width: 100vw;
-}
-.content-xl {
-  height: calc(100vh - theme("spacing.xl"));
-  width: 100vw;
+@layer utilities {
+  .content-base {
+    height: calc(100vh - theme("spacing.base"));
+    width: 100vw;
+  }
+  .content-sm {
+    height: calc(100vh - theme("spacing.sm"));
+    width: 100vw;
+  }
+  .content-md {
+    height: calc(100vh - theme("spacing.md"));
+    width: 100vw;
+  }
+  .content-lg {
+    height: calc(100vh - theme("spacing.lg"));
+    width: 100vw;
+  }
+  .content-xl {
+    height: calc(100vh - theme("spacing.xl"));
+    width: 100vw;
+  }
 }
 
 /* global configs */

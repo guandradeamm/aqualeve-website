@@ -15,7 +15,7 @@ const Localizacao = ({ content }) => {
       >
         <div
           id={`${component}-heading`}
-          className="h-1/6 lg:h-1/5 flex lg:items-end items-center  lg:mb-0"
+          className="lg:h-1/5 flex lg:items-end items-center lg:mb-0"
         >
           <h1 className="lg:text-5xl text-3xl text-theme-green font-questrial">
             LOCALIZAÇÃO
