@@ -12,11 +12,15 @@ const Produtos = ({ content }) => {
   return (
     <div
       id={component}
-      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl"
+      className="content-base pb-6
+      sm:content-sm 
+      md:content-md 
+      lg:content-lg lg:pb-0
+      xl:content-xl"
     >
       <div
         id={`${component}-container`}
-        className="h-full w-full flex flex-col justify-between m-auto p-8
+        className="h-full w-full flex flex-col justify-between m-auto p-8 space-y-4
         lg:max-w-screen-lg lg:p-12
         xl:max-w-screen-xl xl:p-10"
       >
@@ -30,7 +34,7 @@ const Produtos = ({ content }) => {
         </div>
         <div
           id={`${component}-slide`}
-          className="h-5/6 w-full flex items-center justify-center
+          className="h-full w-full flex items-center justify-center
           xl:h-full"
         >
           <Swiper

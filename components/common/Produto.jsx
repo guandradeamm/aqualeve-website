@@ -17,7 +17,9 @@ const Produto = ({ data }) => {
       ></div>
       <div
         id={`${component}-foreground`}
-        className="max-w-xs w-full h-full py-4 space-y-4 flex flex-col items-center justify-between text-center rounded-3xl bg-theme-lightest-blue
+        className="max-w-sm w-full h-5/6 py-4 space-y-4 flex flex-col items-center justify-between text-center rounded-3xl bg-theme-lightest-blue
+        sm:max-w-md
+        md:max-w-lg
         lg:max-w-none lg:h-5/6 lg:w-1/2 lg:p-6 lg:rounded-l-3xl lg:justify-start lg:max-h-[450px]
         xl:w-1/2"
       >
