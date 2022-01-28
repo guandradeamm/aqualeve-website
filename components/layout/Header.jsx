@@ -7,7 +7,7 @@ import { Transition } from "@headlessui/react";
 
 const Header = ({ content }) => {
   const component = "navbar";
-  const navigationLinks = content;
+  const { navigationLinks, instagram } = content;
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav
@@ -23,10 +23,12 @@ const Header = ({ content }) => {
       xl:w-10/12"
       >
         <div id={`${component}-logo`}>
-          <Link href="/">
-            <div className="m-auto">
-              <Logo className="mt-1 h-base sm:h-sm md:h-md lg:h-lg" />
-            </div>
+          <Link passHref href="#hero">
+            <a>
+              <div className="m-auto">
+                <Logo className="mt-1 h-base sm:h-sm md:h-md lg:h-lg" />
+              </div>
+            </a>
           </Link>
         </div>
         <div
@@ -37,33 +39,38 @@ const Header = ({ content }) => {
           2xl:text-base"
         >
           {navigationLinks.map(({ href, name, id }) => (
-            <a key={id} href={href}>
-              <span
-                className="text-theme-white uppercase p-3
-              hover:font-bold hover:bg-theme-yellow hover:rounded-full"
-              >
-                {name}
-              </span>
-            </a>
+            <Link passHref key={id} href={href}>
+              <a>
+                <span
+                  className="text-theme-white uppercase p-3
+                hover:font-bold hover:bg-theme-yellow hover:rounded-full"
+                >
+                  {name}
+                </span>
+              </a>
+            </Link>
           ))}
-
-          <a href="https://www.instagram.com/aguaaqualeve" target={"_blank"}>
-            <div
-              className="p-3 bg-theme-yellow text-theme-white flex items-center justify-center rounded-full text-lg
+          <Link passHref href={instagram?.href}>
+            <a target={"_blank"}>
+              <div
+                className="p-3 bg-theme-yellow text-theme-white flex items-center justify-center rounded-full text-lg
               xl:text-xl 
-            hover:bg-theme-orange"
-            >
-              <GrInstagram />
-            </div>
-          </a>
-          <a>
-            <button
-              className="p-3 uppercase bg-theme-yellow text-theme-white rounded-full font-mont font-semibold 
-            hover:bg-theme-orange"
-            >
-              envie seu currículo
-            </button>
-          </a>
+              hover:bg-theme-orange"
+              >
+                <GrInstagram />
+              </div>
+            </a>
+          </Link>
+          <Link passHref href={"#"}>
+            <a>
+              <button
+                className="p-3 uppercase bg-theme-yellow text-theme-white rounded-full font-mont font-semibold 
+              hover:bg-theme-orange"
+              >
+                envie seu currículo
+              </button>
+            </a>
+          </Link>
         </div>
         <div id={`${component}-mobile-navigation`} className="lg:hidden flex">
           <button
@@ -101,15 +108,17 @@ const Header = ({ content }) => {
               {navigationLinks.map(({ name, id, href }) => (
                 <div
                   key={id}
-                  className="cursor-pointer text-theme-light-white uppercase hover:text-theme-light-white transition-all ease-in-out mb-8 p-2"
+                  className="text-theme-light-white uppercase hover:text-theme-light-white transition-all ease-in-out mb-8 p-2"
                 >
                   <Link passHref href={`${href}`}>
-                    <span
-                      onClick={() => setIsOpen(!isOpen)}
-                      className="font-mont text-xl font-semibold sm:text-2xl md:text-xl"
-                    >
-                      {name}
-                    </span>
+                    <a>
+                      <span
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="font-mont text-xl font-semibold sm:text-2xl md:text-xl"
+                      >
+                        {name}
+                      </span>
+                    </a>
                   </Link>
                 </div>
               ))}

@@ -19,10 +19,10 @@ function FaleConosco() {
     mensagem: "",
   });
 
-  const valueInput = (e) =>
+  const handleInput = (e) =>
     setUser({ ...user, [e.target.name]: e.target.value });
 
-  const addUser = async (e) => {
+  const submitContact = async (e) => {
     e.preventDefault();
 
     if (!(await validate())) return;
@@ -119,21 +119,27 @@ function FaleConosco() {
           </div>
 
           <form
-            name="form1"
-            id="form1"
+            name="contactForm"
+            id="contactForm"
             method="post"
-            onSubmit={addUser}
-            className=" w-full h-5/6 lg:h-4/5 "
+            onSubmit={submitContact}
+            className="w-full h-5/6 
+            lg:h-4/5 "
           >
             <div
               id={`${component}-main`}
-              className="w-full h-full flex flex-col-reverse lg:flex-row"
+              className="w-full h-full flex flex-col-reverse 
+              lg:flex-row"
             >
               <div
                 id={`${component}-inputs`}
-                className="w-full h-1/2 lg:w-1/2 lg:h-full flex flex-col"
+                className="w-full h-1/2 flex flex-col
+                lg:w-1/2 lg:h-full"
               >
-                <div className="lg:mt-14 mt-0">
+                <div
+                  className="mt-0
+                lg:mt-14"
+                >
                   <Input
                     type="text"
                     name="name"
@@ -141,7 +147,7 @@ function FaleConosco() {
                     inputType="input"
                     placeholder="DIGITE SEU NOME"
                     divStyle="h-8 lg:h-12 xl:16  "
-                    onChange={valueInput}
+                    onChange={handleInput}
                     // value={user.name}
                   ></Input>
                 </div>
@@ -155,7 +161,7 @@ function FaleConosco() {
                     divStyle="w-[39%] lg:w-[47%] xl:w-[35%]h-8 lg:h-12 xl:16"
                     mask="(99) 99999-9999"
                     maskChar=""
-                    onChange={valueInput}
+                    onChange={handleInput}
                     // value={user.telefone}
                   ></Input>
                   <Input
@@ -165,7 +171,7 @@ function FaleConosco() {
                     inputType="input"
                     placeholder="SEU E-MAIL"
                     divStyle="w-[60%] lg:[52%] xl:[60%] h-8 lg:h-12 xl:16"
-                    onChange={valueInput}
+                    onChange={handleInput}
                     // value={user.email}
                   ></Input>
                 </div>
@@ -177,7 +183,7 @@ function FaleConosco() {
                     inputType="textarea"
                     placeholder="DIGITE SUA MENSAGEM"
                     divStyle="lg:h-full h-24"
-                    onChange={valueInput}
+                    onChange={handleInput}
                     value={user.mensagem}
                   ></Input>
                 </div>
