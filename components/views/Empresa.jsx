@@ -17,23 +17,26 @@ const Empresa = ({ content }) => {
     >
       <div
         id={`${component}-container`}
-        className="h-full w-full lg:w-4/5 flex flex-col justify-between m-auto p-8 lg:p-20"
+        className="h-full w-full flex flex-col justify-between m-auto p-8 
+        lg:max-w-screen-lg lg:p-12
+        xl:max-w-screen-xl xl:p-10"
       >
-        <div
-          id={`${component}-heading`}
-          className="lg:h-1/5 flex items-center lg:items-end mb-10 lg:mb-0"
-        >
-          <h1 className="lg:text-5xl text-3xl  text-theme-green font-questrial">
+        <div id={`${component}-heading`} className="flex items-center">
+          <h1
+            className="text-3xl text-theme-green font-questrial
+          lg:text-5xl "
+          >
             EMPRESA
           </h1>
         </div>
         <div
           id={`${component}-slide`}
-          className="h-5/6 lg:h-4/5 flex items-center justify-center w-full"
+          className="h-5/6 w-full flex items-center justify-center
+          lg:h-full"
         >
           <Swiper
             id={`${component}-swiper-screens`}
-            className="h-full w-full hidden lg:block"
+            className="h-full w-full hidden xl:block"
             // install Swiper modules
             modules={[Navigation, Pagination, A11y, Autoplay]}
             spaceBetween={50}
@@ -54,7 +57,7 @@ const Empresa = ({ content }) => {
           </Swiper>
           <Swiper
             id={`${component}-swiper-mobile`}
-            className="h-full w-full lg:hidden"
+            className="h-full w-full xl:hidden"
             modules={[A11y, Autoplay]}
             spaceBetween={50}
             slidesPerView={1}

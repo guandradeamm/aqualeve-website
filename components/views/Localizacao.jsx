@@ -11,27 +11,35 @@ const Localizacao = ({ content }) => {
     >
       <div
         id={`${component}-container`}
-        className="h-full w-full lg:w-4/5 flex flex-col justify-between m-auto p-8 lg:p-20"
+        className="h-full w-full flex flex-col justify-between m-auto p-8
+        lg:max-w-screen-lg lg:p-12
+        xl:max-w-screen-xl xl:p-10"
       >
-        <div
-          id={`${component}-heading`}
-          className="lg:h-1/5 flex lg:items-end items-center lg:mb-0"
-        >
-          <h1 className="lg:text-5xl text-3xl text-theme-green font-questrial">
+        <div id={`${component}-heading`} className="flex items-center">
+          <h1
+            className="text-3xl text-theme-green font-questrial
+          lg:text-5xl"
+          >
             LOCALIZAÇÃO
           </h1>
         </div>
-        <div id={`${component}-main`} className="h-5/6 lg:h-4/5 w-full flex">
+        <div
+          id={`${component}-main`}
+          className="h-5/6 w-full flex items-center justify-center
+        lg:h-full"
+        >
           <div
-            id={`${component}-componentVideo`}
-            className="h-full w-full lg:flex lg:items-center lg:justify-between"
+            id={`${component}-content`}
+            className="h-full w-full 
+            lg:flex lg:items-center lg:justify-between"
           >
             <div
               id={`${component}-video`}
-              className="lg:w-[45%] w-full lg:h-full h-2/5 bg-theme-white flex items-center justify-center"
+              className="w-full h-2/5 flex items-center justify-center
+              lg:w-[45%] lg:h-full"
             >
               <Player
-                url={locationVideo.url}
+                url={locationVideo?.url}
                 loop={true}
                 playing={true}
                 muted={true}
@@ -41,8 +49,9 @@ const Localizacao = ({ content }) => {
               />
             </div>
             <div
-              id={`${component}-componentMap`}
-              className="flex flex-col items-center justify-center bg-theme-white lg:h-full h-3/5 lg:w-[45%] w-full lg:p-6"
+              id={`${component}-map-container`}
+              className="h-3/5 w-full flex flex-col items-center justify-center space-y-4
+              lg:h-full lg:w-[45%] lg:p-6"
             >
               <div
                 id={`${component}-map`}
@@ -57,7 +66,10 @@ const Localizacao = ({ content }) => {
                   allowFullScreen
                 ></iframe>
               </div>
-              <h4 className="font-questrial font-regular lg:text-xl text-base w-[100%] text-center mt-4">
+              <h4
+                className="font-questrial font-regular text-base w-full text-center
+              lg:text-xl"
+              >
                 Rua Antônio Luiz Aleixo, 02 Pontal - Ponte Nova-MG CEP:
                 35435-500
               </h4>

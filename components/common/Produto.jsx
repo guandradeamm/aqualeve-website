@@ -32,7 +32,7 @@ const Produto = ({ data }) => {
           lg:text-xl
           xl:text-3xl"
           >
-            {data.name}
+            {data?.name}
           </h1>
           <h2
             className="leading-relaxed text-theme-black text-md font-questrial font-regular text-center
@@ -40,7 +40,7 @@ const Produto = ({ data }) => {
           lg:text-sm lg:leading-normal
           xl:text-base"
           >
-            {data.text}
+            {data?.text}
           </h2>
         </div>
         <div
@@ -49,7 +49,7 @@ const Produto = ({ data }) => {
           lg:hidden lg:absolute"
         >
           <Image
-            src={data.image.url}
+            src={data?.image?.url}
             layout="fill"
             className="object-contain object-center w-full h-full"
           />
@@ -60,7 +60,7 @@ const Produto = ({ data }) => {
           lg:flex lg:space-y-2"
         >
           <h3 className="text-theme-white font-mont font-semibold text-xs font-regular">
-            {data.composition}
+            {data?.composition}
           </h3>
           <ul
             className="text-theme-white w-full font-mont text-xs font-regular
@@ -81,7 +81,7 @@ const Produto = ({ data }) => {
       lg:block lg:border-[5px] 
       xl:border-[15px]"
       >
-        <img src={data.image.url} className="object-contain w-full" />
+        <img src={data?.image?.url} className="object-contain w-full" />
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ function Home({ empresas, produtos, localAssets, navigationLinks }) {
   return (
     <div className="pt-base sm:pt-sm md:pt-md lg:pt-lg">
       <Header content={navigationLinks} />
-      <main className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl snap-y snap-mandatory overflow-x-hidden scrollbar-thin scrollbar-track-theme-white scrollbar-thumb-theme-green">
+      <main className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl snap-y snap-mandatory overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-theme-green">
         <div className="snap-start">
           <Hero />
         </div>

@@ -2,17 +2,39 @@ import React from "react";
 import Image from "next/image";
 
 const Empresa = ({ data }) => {
+  const component = `empresa-${data?.id}`;
   return (
-    <div className="max-w-md lg:max-w-full h-full lg:w-full flex flex-col items-center justify-between lg:justify-center lg:flex-row lg:mb-6 lg:p-20 m-auto">
-      <div className="relative h-2/5 md:h-3/5 w-full lg:h-full lg:w-1/2 mb-8 lg:mb-0 lg:mr-8 xl:mr-14">
+    <div
+      id={`${component}`}
+      className="max-w-md h-full flex flex-col items-center justify-between m-auto space-y-4
+      lg:max-w-none lg:w-full lg:justify-center lg:flex-row lg:space-y-0 lg:space-x-6
+      xl:w-5/6"
+    >
+      <div
+        id={`${component}-image`}
+        className="h-1/2 w-full relative
+        lg:h-5/6 lg:w-1/2 lg:max-h-[300px]
+        xl:max-h-[400px]"
+      >
         <Image
           layout="fill"
           src={data?.image?.url}
-          className="object-cover object-center lg:object-contain xl:object-cover rounded-3xl h-full w-full"
+          className="object-cover object-center h-full w-full rounded-3xl
+          lg:object-cover 
+          xl:object-cover"
         />
       </div>
-      <div className="h-3/5 md:h-2/5 lg:h-full w-full lg:w-1/2 p-2 lg:p-0 lg:flex lg:items-center lg:justify-center">
-        <h1 className="justify-center items-center flex text-theme-black font-questrial text-2xl xl:text-3xl font-regular text-justify lg:text-left">
+      <div
+        id={`${component}-info`}
+        className="h-1/2 w-full p-2
+        md:h-2/5 
+        lg:h-full lg:w-1/2 lg:p-0 lg:flex lg:items-center lg:justify-center"
+      >
+        <h1
+          className="text-xl flex justify-center items-center text-theme-black font-questrial font-regular text-justify
+        lg:text-2xl lg:text-left
+        xl:text-3xl"
+        >
           {data.text}
         </h1>
       </div>

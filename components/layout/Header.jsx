@@ -6,42 +6,66 @@ import { IoMenuSharp, IoCloseOutline } from "react-icons/io5";
 import { Transition } from "@headlessui/react";
 
 const Header = ({ content }) => {
+  const component = "navbar";
   const navigationLinks = content;
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="w-full h-base sm:h-sm md:h-md lg:h-lg bg-theme-light-green border-theme-light-blue border-b-2 fixed z-50 inset-0">
-      <div className="w-11/12 lg:w-10/12 m-auto h-full flex items-center justify-between">
-        <div id="logo">
+    <nav
+      id={component}
+      className="w-full h-base bg-theme-light-green border-theme-light-blue border-b-2 fixed z-50 inset-0
+      sm:h-sm 
+      md:h-md 
+      lg:h-lg"
+    >
+      <div
+        id={`${component}-container`}
+        className="w-11/12 h-full m-auto flex items-center justify-between
+      xl:w-10/12"
+      >
+        <div id={`${component}-logo`}>
           <Link href="/">
             <div className="m-auto">
-              <Logo className="mt-1 h-20 sm:h-24 md:h-28 lg:h-32" />
+              <Logo className="mt-1 h-base sm:h-sm md:h-md lg:h-lg" />
             </div>
           </Link>
         </div>
         <div
-          id="navigation"
-          className="hidden lg:flex flex-row justify-center items-center align-center padding-0 position-static font-mont font-semibold text-xs"
+          id={`${component}-navigation`}
+          className="hidden flex-row justify-center items-center font-mont font-semibold text-xs space-x-2
+          lg:flex
+          xl:space-x-4 xl:text-sm
+          2xl:text-base"
         >
           {navigationLinks.map(({ href, name, id }) => (
             <a key={id} href={href}>
-              <span className="mr-2 lg:mr-6 text-theme-white uppercase">
+              <span
+                className="text-theme-white uppercase p-3
+              hover:font-bold hover:bg-theme-yellow hover:rounded-full"
+              >
                 {name}
               </span>
             </a>
           ))}
 
           <a href="https://www.instagram.com/aguaaqualeve" target={"_blank"}>
-            <div className="h-10 w-10 bg-theme-yellow flex items-center justify-center rounded-full mr-2 lg:mr-6 hover:bg-theme-orange">
-              <GrInstagram className="text-theme-white w-5 h-5 " />
+            <div
+              className="p-3 bg-theme-yellow text-theme-white flex items-center justify-center rounded-full text-lg
+              xl:text-xl 
+            hover:bg-theme-orange"
+            >
+              <GrInstagram />
             </div>
           </a>
           <a>
-            <button className="uppercase text-theme-white bg-theme-yellow rounded-full p-3 font-mont font-semibold hover:bg-theme-orange">
+            <button
+              className="p-3 uppercase bg-theme-yellow text-theme-white rounded-full font-mont font-semibold 
+            hover:bg-theme-orange"
+            >
               envie seu currículo
             </button>
           </a>
         </div>
-        <div className="lg:hidden flex">
+        <div id={`${component}-mobile-navigation`} className="lg:hidden flex">
           <button
             onClick={(event) => {
               event.preventDefault();
@@ -49,7 +73,8 @@ const Header = ({ content }) => {
               return false;
             }}
             type="button"
-            className="text-2xl text-theme-white cursor-pointer hover:text-theme-light-white"
+            className="text-2xl text-theme-white cursor-pointer 
+            hover:text-theme-light-white"
             aria-controls="mobile=menu"
             aria-expanded="false"
           >
