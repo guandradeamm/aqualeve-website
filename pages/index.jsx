@@ -40,7 +40,7 @@ function Home({
           <FaleConosco />
         </div>
         <FloatingButton content={whatsapp} />
-        <Footer content={github} />
+        <Footer content={{ github }} />
       </main>
     </div>
   );
