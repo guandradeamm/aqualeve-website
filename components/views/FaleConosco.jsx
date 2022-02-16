@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 import Contact from "../images/Contact";
 import Input from "../common/Input";
 import { GrMail } from "react-icons/gr";

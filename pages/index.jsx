@@ -5,6 +5,7 @@ import {
   Localizacao,
   Produtos,
   Header,
+  Footer,
   FloatingButton,
 } from "../components";
 import { graphCMSClient } from "../services";
@@ -17,27 +18,29 @@ function Home({
   navigationLinks,
   whatsapp,
   instagram,
+  github,
 }) {
   return (
     <div className="pt-base sm:pt-sm md:pt-md lg:pt-lg">
       <Header content={{ navigationLinks, instagram }} />
       <main className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl snap-y snap-mandatory overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-theme-green">
-        <div className="snap-start">
+        <div className="">
           <Hero content={{ instagram }} />
         </div>
-        <div className="snap-start">
+        <div className="">
           <Empresa content={empresas} />
         </div>
-        <div className="snap-start">
+        <div className="">
           <Produtos content={produtos} />
         </div>
-        <div className="snap-start">
+        <div className="">
           <Localizacao content={localAssets} />
         </div>
-        <div className="snap-start">
+        <div className="">
           <FaleConosco />
         </div>
         <FloatingButton content={whatsapp} />
+        <Footer content={github} />
       </main>
     </div>
   );
@@ -84,12 +87,14 @@ export async function getStaticProps() {
         socials {
           id
           name
+          ref
           href
         }
       }
     `);
-  const whatsapp = socials.find((social) => social.name === "whatsapp");
-  const instagram = socials.find((social) => social.name === "instagram");
+  const whatsapp = socials.find((social) => social.ref === "whatsapp");
+  const instagram = socials.find((social) => social.ref === "instagram");
+  const github = socials.find((social) => social.ref === "github");
   return {
     props: {
       empresas,
@@ -98,6 +103,7 @@ export async function getStaticProps() {
       navigationLinks,
       whatsapp,
       instagram,
+      github,
     },
   };
 }
