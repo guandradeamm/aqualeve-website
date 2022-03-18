@@ -24,19 +24,19 @@ function Home({
     <div className="pt-base sm:pt-sm md:pt-md lg:pt-lg">
       <Header content={{ navigationLinks, instagram }} />
       <main className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl snap-y snap-mandatory overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-theme-green">
-        <div className="">
+        <div>
           <Hero content={{ instagram }} />
         </div>
-        <div className="">
+        <div>
           <Empresa content={empresas} />
         </div>
-        <div className="">
+        <div>
           <Produtos content={produtos} />
         </div>
-        <div className="">
+        <div>
           <Localizacao content={localAssets} />
         </div>
-        <div className="">
+        <div>
           <FaleConosco />
         </div>
         <FloatingButton content={whatsapp} />

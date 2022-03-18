@@ -147,7 +147,7 @@ function FaleConosco() {
                     id="name"
                     inputType="input"
                     placeholder="DIGITE SEU NOME"
-                    divStyle="h-8 lg:h-12 xl:16  "
+                    divStyle="h-8 lg:h-12 xl:16"
                     onChange={handleInput}
                     // value={user.name}
                   ></Input>
@@ -203,9 +203,9 @@ function FaleConosco() {
                 <Contact className="h-3/4 xl:h-4/5 w-full" />
 
                 <div className="h-1/4 w-11/12 lg:w-full rounded-2xl bg-theme-dark-blue text-theme-white flex  flex-col justify-between p-2 lg:p-4 text-sm lg:text-base xl:text-xl ">
-                  <p className="text-theme-white flex  ml-4 ">
+                  <p className="text-theme-white flex  ml-4">
                     <ImPhone className="text-theme-light-blue lg:text-lg xl:text-xl lg:mr-6 xl:mr-10 mr-4" />
-                    31-3798-2045 / 31-99909-4098
+                    +55 31 99909-4098
                   </p>
                   <p className="text-theme-white flex ml-4">
                     <GrMail className="text-theme-light-blue lg:text-lg xl:text-xl lg:mr-6 xl:mr-10 mr-4" />

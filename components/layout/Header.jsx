@@ -100,11 +100,11 @@ const Header = ({ content }) => {
         leaveTo="opacity-0 scale-95"
       >
         <div
-          className="lg:hidden overflow-hidden relative h-full w-full "
+          className="lg:hidden overflow-hidden relative h-full w-full"
           id="mobile-menu"
         >
           <div className="bg-theme-light-green h-full w-full md:h-1/2 md:w-3/5 top-0 right-0 z-40 py-8 flex flex-col absolute  rounded-bl-3xl">
-            <div className="flex flex-col items-center ">
+            <div className="flex flex-col items-center">
               {navigationLinks.map(({ name, id, href }) => (
                 <div
                   key={id}
