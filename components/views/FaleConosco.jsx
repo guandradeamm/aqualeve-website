@@ -1,81 +1,46 @@
-import React, { useState } from "react";
-import Link from "next/link";
+import React from "react";
 import Contact from "../images/Contact";
 import Input from "../common/Input";
 import { GrMail } from "react-icons/gr";
 import { ImPhone } from "react-icons/im";
 import * as yup from "yup";
+import emailjs from "emailjs-com";
+import { useFormik } from "formik";
 
 function FaleConosco() {
   const component = "faleconosco";
-  const [user, setUser] = useState({
-    name: "",
-    telefone: "",
-    email: "",
-    mensagem: "",
-  });
-
-  const [status, setStatus] = useState({
-    type: "",
-    mensagem: "",
-  });
-
-  const handleInput = (e) =>
-    setUser({ ...user, [e.target.name]: e.target.value });
-
-  const submitContact = async (e) => {
-    e.preventDefault();
-
-    if (!(await validate())) return;
-
-    const saveDataForm = true;
-
-    if (saveDataForm) {
-      setStatus({
-        type: "success",
-        mensagem: "Usuário cadastrado com sucesso!",
+  const sendEmail = (form) => {
+    emailjs
+      .sendForm("guandradeamm", "template_q6yxms6", form, "")
+      .then((response) => {
+        alert("E-mail enviado com sucesso", response);
+      })
+      .catch((error) => {
+        alert("Erro ao enviar e-mail", error);
       });
-      setUser({
-        name: "",
-        telefone: "",
-        email: "",
-        mensagem: "",
-      });
-    } else {
-      setStatus({
-        type: "error",
-        mensagem: "Erro: Usuário não cadastrado com sucesso!",
-      });
-    }
   };
 
-  async function validate() {
-    let schema = yup.object().shape({
-      mensagem: yup
-        .string("Erro: Necessário preencher o campo mensagem!")
-        .required("Erro:Necessário preencher o campo mensagem!"),
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      telefone: "",
+      email: "",
+      mensagem: "",
+    },
+    validationSchema: yup.object({
+      name: yup.string().required("O campo é obrigatório."),
+      telefone: yup.number().required("O campo é obrigatório."),
       email: yup
-        .string("Erro: Necessário preencher o campo email!")
-        .required("Erro:Necessário preencher o campo email!")
-        .email("Erro: Necessário preencher o campo com e-mail válido!"),
-      telefone: yup
-        .string("Erro: Necessário preencher o campo telefone!")
-        .required("Erro:Necessário preencher o campo telefone!"),
-      name: yup
-        .string("Erro: Necessário preencher o campo nome!")
-        .required("Erro:Necessário preencher o campo nome!"),
-    });
-    try {
-      await schema.validate(user);
-      return true;
-    } catch (err) {
-      setStatus({
-        type: "error",
-        mensagem: err.errors,
-      });
-      return false;
-    }
-  }
+        .string()
+        .email("Email inválido.")
+        .required("O campo é obrigatório."),
+      mensagem: yup.string().required("O campo é obrigatório."),
+    }),
+    onSubmit: (values) => {
+      sendEmail(values);
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <div
@@ -123,7 +88,7 @@ function FaleConosco() {
             name="contactForm"
             id="contactForm"
             method="post"
-            onSubmit={submitContact}
+            onSubmit={formik.handleSubmit}
             className="w-full h-5/6 
             lg:h-4/5 "
           >
@@ -148,8 +113,9 @@ function FaleConosco() {
                     inputType="input"
                     placeholder="DIGITE SEU NOME"
                     divStyle="h-8 lg:h-12 xl:16"
-                    onChange={handleInput}
-                    // value={user.name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.name}
                   ></Input>
                 </div>
                 <div className="flex items-center justify-between w-full mt-2 lg:mt-8 xl:mt-14">
@@ -162,8 +128,9 @@ function FaleConosco() {
                     divStyle="w-[39%] lg:w-[47%] xl:w-[35%]h-8 lg:h-12 xl:16"
                     mask="(99) 99999-9999"
                     maskChar=""
-                    onChange={handleInput}
-                    // value={user.telefone}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.telefone}
                   ></Input>
                   <Input
                     type="email"
@@ -172,8 +139,9 @@ function FaleConosco() {
                     inputType="input"
                     placeholder="SEU E-MAIL"
                     divStyle="w-[60%] lg:[52%] xl:[60%] h-8 lg:h-12 xl:16"
-                    onChange={handleInput}
-                    // value={user.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
                   ></Input>
                 </div>
                 <div className="mt-2 lg:mt-8 xl:mt-14 lg:h-full">
@@ -184,8 +152,9 @@ function FaleConosco() {
                     inputType="textarea"
                     placeholder="DIGITE SUA MENSAGEM"
                     divStyle="lg:h-full h-24"
-                    onChange={handleInput}
-                    value={user.mensagem}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.mensagem}
                   ></Input>
                 </div>
                 <button

@@ -4,11 +4,20 @@ import { Logo } from "../images";
 import { GrInstagram } from "react-icons/gr";
 import { IoMenuSharp, IoCloseOutline } from "react-icons/io5";
 import { Transition } from "@headlessui/react";
+import { EnvieCurriculo } from "../../components";
 
 const Header = ({ content }) => {
   const component = "navbar";
   const { navigationLinks, instagram } = content;
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const openModal = () => {
+    setIsOpenModal(true);
+  };
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
   return (
     <nav
       id={component}
@@ -66,9 +75,11 @@ const Header = ({ content }) => {
               <button
                 className="p-3 uppercase bg-theme-yellow text-theme-white rounded-full font-mont font-semibold 
               hover:bg-theme-orange"
+                onClick={openModal}
               >
                 envie seu currículo
               </button>
+              <EnvieCurriculo isOpen={isOpenModal} closeIsOpen={closeModal} />
             </a>
           </Link>
         </div>
