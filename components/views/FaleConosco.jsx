@@ -1,53 +1,67 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Contact from "../images/Contact";
-import Input from "../common/Input";
 import { GrMail } from "react-icons/gr";
 import { ImPhone } from "react-icons/im";
-import * as yup from "yup";
 import emailjs from "emailjs-com";
-import { useFormik } from "formik";
 
 function FaleConosco() {
   const component = "faleconosco";
-  const sendEmail = (form) => {
-    emailjs
-      .sendForm("guandradeamm", "template_q6yxms6", form, "")
-      .then((response) => {
-        alert("E-mail enviado com sucesso", response);
-      })
-      .catch((error) => {
-        alert("Erro ao enviar e-mail", error);
-      });
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      telefone: "",
-      email: "",
-      mensagem: "",
-    },
-    validationSchema: yup.object({
-      name: yup.string().required("O campo é obrigatório."),
-      telefone: yup.number().required("O campo é obrigatório."),
-      email: yup
-        .string()
-        .email("Email inválido.")
-        .required("O campo é obrigatório."),
-      mensagem: yup.string().required("O campo é obrigatório."),
-    }),
-    onSubmit: (values) => {
-      sendEmail(values);
-      alert(JSON.stringify(values, null, 2));
-    },
+  const form = useRef();
+  const [formulario, setFormulario] = useState({
+    nome: "",
+    telefone: "",
+    email: "",
+    mensagem: "",
   });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormulario((prevFormulario) => ({
+      ...prevFormulario,
+      [name]: value,
+    }));
+  };
+  const defaultStyles =
+    "w-full border-theme-middle-blue h-full  rounded-xl lg:rounded-3xl border-2 p-2 lg:p-4 xl:p-8 text-xs lg:text-sm placeholder-theme-middle-blue hover:border-theme-green focus:border-theme-green focus:text-theme-green text-theme-middle-blue focus:outline-none active:border-theme-green focus:placeholder-theme-green uppercase";
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+      .sendForm(
+        "service_tuqvq1n",
+        "template_vmqz2vl",
+        form.current,
+        "jtJfa-fEZWBCEqgT8"
+      )
+      .then(
+        (result) => {
+          if (result.status === 200) {
+            alert("Mensagem enviada com sucesso !");
+            setFormulario({
+              nome: "",
+              telefone: "",
+              email: "",
+              mensagem: "",
+            });
+          } else {
+            alert(
+              "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente."
+            );
+          }
+        },
+        (error) => {
+          alert(
+            "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente."
+          );
+        }
+      );
+  };
 
   return (
     <div
       id={component}
       className="content-base pb-6
-      sm:content-sm 
-      md:content-md 
+      sm:content-sm
+      md:content-md
       lg:content-lg lg:pb-0
       xl:content-xl"
     >
@@ -71,30 +85,16 @@ function FaleConosco() {
           md:max-w-lg
           lg:max-w-none"
         >
-          <div id={`${component}-alert`}>
-            {status.type === "success" ? (
-              <p style={{ color: "green" }}>{status.mensagem}</p>
-            ) : (
-              ""
-            )}
-            {status.type === "error" ? (
-              <p style={{ color: "#ff0000" }}>{status.mensagem}</p>
-            ) : (
-              ""
-            )}
-          </div>
-
           <form
-            name="contactForm"
-            id="contactForm"
-            method="post"
-            onSubmit={formik.handleSubmit}
-            className="w-full h-5/6 
+            ref={form}
+            onSubmit={sendEmail}
+            className="w-full h-5/6
             lg:h-4/5 "
+            id="formulario-faleconosco"
           >
             <div
               id={`${component}-main`}
-              className="w-full h-full flex flex-col-reverse 
+              className="w-full h-full flex flex-col-reverse
               lg:flex-row"
             >
               <div
@@ -104,58 +104,51 @@ function FaleConosco() {
               >
                 <div
                   className="mt-0
-                lg:mt-14"
+                lg:mt-14 h-8 lg:h-12 xl:16"
                 >
-                  <Input
+                  <input
                     type="text"
-                    name="name"
-                    id="name"
+                    name="nome"
+                    value={formulario.nome}
                     inputType="input"
                     placeholder="DIGITE SEU NOME"
-                    divStyle="h-8 lg:h-12 xl:16"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.name}
-                  ></Input>
+                    onChange={handleChange}
+                    className={defaultStyles}
+                  ></input>
                 </div>
-                <div className="flex items-center justify-between w-full mt-2 lg:mt-8 xl:mt-14">
-                  <Input
+                <div className="flex items-center justify-between mt-2 lg:mt-8 xl:mt-14 w-full h-8 lg:h-12 xl:16">
+                  <input
                     type="text"
                     name="telefone"
-                    id="telefone"
+                    value={formulario.telefone}
+                    onChange={handleChange}
                     inputType="mask"
                     placeholder="(00)99999-9999"
-                    divStyle="w-[39%] lg:w-[47%] xl:w-[35%]h-8 lg:h-12 xl:16"
+                    className={defaultStyles}
                     mask="(99) 99999-9999"
                     maskChar=""
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.telefone}
-                  ></Input>
-                  <Input
+                  ></input>
+                  <input
                     type="email"
                     name="email"
-                    id="email"
+                    value={formulario.email}
+                    onChange={handleChange}
                     inputType="input"
                     placeholder="SEU E-MAIL"
-                    divStyle="w-[60%] lg:[52%] xl:[60%] h-8 lg:h-12 xl:16"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.email}
-                  ></Input>
+                    className={defaultStyles}
+                  ></input>
                 </div>
                 <div className="mt-2 lg:mt-8 xl:mt-14 lg:h-full">
-                  <Input
+                  <textarea
                     type="text"
                     name="mensagem"
-                    id="mensagem"
+                    value={formulario.mensagem}
+                    onChange={handleChange}
                     inputType="textarea"
                     placeholder="DIGITE SUA MENSAGEM"
+                    className={defaultStyles}
                     divStyle="lg:h-full h-24"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.mensagem}
-                  ></Input>
+                  />
                 </div>
                 <button
                   type="submit"
