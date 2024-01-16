@@ -1,60 +1,60 @@
-import React, { useRef, useState } from "react";
-import Contact from "../images/Contact";
-import { GrMail } from "react-icons/gr";
-import { ImPhone } from "react-icons/im";
-import emailjs from "emailjs-com";
+import emailjs from "emailjs-com"
+import React, { useRef, useState } from "react"
+import { GrMail } from "react-icons/gr"
+import { ImPhone } from "react-icons/im"
+import Contact from "../images/Contact"
 
 function FaleConosco() {
-  const component = "faleconosco";
-  const form = useRef();
+  const component = "faleconosco"
+  const form = useRef()
   const [formulario, setFormulario] = useState({
     nome: "",
     telefone: "",
     email: "",
     mensagem: "",
-  });
+  })
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormulario((prevFormulario) => ({
       ...prevFormulario,
       [name]: value,
-    }));
-  };
+    }))
+  }
   const defaultStyles =
-    "w-full border-theme-middle-blue h-full  rounded-xl lg:rounded-3xl border-2 p-2 lg:p-4 xl:p-8 text-xs lg:text-sm placeholder-theme-middle-blue hover:border-theme-green focus:border-theme-green focus:text-theme-green text-theme-middle-blue focus:outline-none active:border-theme-green focus:placeholder-theme-green uppercase";
+    "w-full border-theme-middle-blue h-full  rounded-xl lg:rounded-3xl border-2 p-2 lg:p-4 xl:p-8 text-xs lg:text-sm placeholder-theme-middle-blue hover:border-theme-green focus:border-theme-green focus:text-theme-green text-theme-middle-blue focus:outline-none active:border-theme-green focus:placeholder-theme-green uppercase"
 
   const sendEmail = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     emailjs
       .sendForm(
         "service_tuqvq1n",
         "template_vmqz2vl",
         form.current,
-        "jtJfa-fEZWBCEqgT8"
+        "jtJfa-fEZWBCEqgT8",
       )
       .then(
         (result) => {
           if (result.status === 200) {
-            alert("Mensagem enviada com sucesso !");
+            alert("Mensagem enviada com sucesso !")
             setFormulario({
               nome: "",
               telefone: "",
               email: "",
               mensagem: "",
-            });
+            })
           } else {
             alert(
-              "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente."
-            );
+              "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente.",
+            )
           }
         },
         (error) => {
           alert(
-            "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente."
-          );
-        }
-      );
-  };
+            "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente.",
+          )
+        },
+      )
+  }
 
   return (
     <div
@@ -110,7 +110,6 @@ function FaleConosco() {
                     type="text"
                     name="nome"
                     value={formulario.nome}
-                    inputType="input"
                     placeholder="DIGITE SEU NOME"
                     onChange={handleChange}
                     className={defaultStyles}
@@ -122,18 +121,14 @@ function FaleConosco() {
                     name="telefone"
                     value={formulario.telefone}
                     onChange={handleChange}
-                    inputType="mask"
                     placeholder="(00)99999-9999"
                     className={defaultStyles}
-                    mask="(99) 99999-9999"
-                    maskChar=""
                   ></input>
                   <input
                     type="email"
                     name="email"
                     value={formulario.email}
                     onChange={handleChange}
-                    inputType="input"
                     placeholder="SEU E-MAIL"
                     className={defaultStyles}
                   ></input>
@@ -144,10 +139,8 @@ function FaleConosco() {
                     name="mensagem"
                     value={formulario.mensagem}
                     onChange={handleChange}
-                    inputType="textarea"
                     placeholder="DIGITE SUA MENSAGEM"
                     className={defaultStyles}
-                    divStyle="lg:h-full h-24"
                   />
                 </div>
                 <button
@@ -187,7 +180,7 @@ function FaleConosco() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default FaleConosco;
+export default FaleConosco

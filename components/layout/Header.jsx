@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { Logo } from "../images";
-import { GrInstagram } from "react-icons/gr";
-import { IoMenuSharp, IoCloseOutline } from "react-icons/io5";
-import { Transition } from "@headlessui/react";
-import { EnvieCurriculo } from "../../components";
+import { Transition } from "@headlessui/react"
+import Link from "next/link"
+import React, { useState } from "react"
+import { GrInstagram } from "react-icons/gr"
+import { IoCloseOutline, IoMenuSharp } from "react-icons/io5"
+import { EnvieCurriculo } from "../../components"
+import { Logo } from "../images"
 
 const Header = ({ content }) => {
-  const component = "navbar";
-  const { navigationLinks, instagram } = content;
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const component = "navbar"
+  const { navigationLinks, instagram } = content
+  const [isOpen, setIsOpen] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
   const openModal = () => {
-    setIsOpenModal(true);
-  };
+    setIsOpenModal(true)
+  }
   const closeModal = () => {
-    setIsOpenModal(false);
-  };
+    setIsOpenModal(false)
+  }
   return (
     <nav
       id={component}
@@ -33,11 +33,9 @@ const Header = ({ content }) => {
       >
         <div id={`${component}-logo`}>
           <Link passHref href="#hero">
-            <a>
               <div className="m-auto">
                 <Logo className="mt-1 h-base sm:h-sm md:h-md lg:h-lg" />
               </div>
-            </a>
           </Link>
         </div>
         <div
@@ -49,18 +47,15 @@ const Header = ({ content }) => {
         >
           {navigationLinks.map(({ href, name, id }) => (
             <Link passHref key={id} href={href}>
-              <a>
                 <span
                   className="text-theme-white uppercase p-3
                 hover:font-bold hover:bg-theme-yellow hover:rounded-full"
                 >
                   {name}
                 </span>
-              </a>
             </Link>
           ))}
           <Link passHref href={instagram?.href}>
-            <a target={"_blank"}>
               <div
                 className="p-3 bg-theme-yellow text-theme-white flex items-center justify-center rounded-full text-lg
               xl:text-xl 
@@ -68,27 +63,22 @@ const Header = ({ content }) => {
               >
                 <GrInstagram />
               </div>
-            </a>
           </Link>
-          <Link passHref href={"#"}>
-            <a>
-              <button
-                className="p-3 uppercase bg-theme-yellow text-theme-white rounded-full font-mont font-semibold 
+          <button
+            className="p-3 uppercase bg-theme-yellow text-theme-white rounded-full font-mont font-semibold 
               hover:bg-theme-orange"
-                onClick={openModal}
-              >
-                envie seu currículo
-              </button>
-              <EnvieCurriculo isOpen={isOpenModal} closeIsOpen={closeModal} />
-            </a>
-          </Link>
+            // onClick={openModal}
+          >
+            envie seu currículo
+          </button>
+          {/* <EnvieCurriculo isOpen={isOpenModal} closeIsOpen={closeModal} /> */}
         </div>
         <div id={`${component}-mobile-navigation`} className="lg:hidden flex">
           <button
             onClick={(event) => {
-              event.preventDefault();
-              setIsOpen(!isOpen);
-              return false;
+              event.preventDefault()
+              setIsOpen(!isOpen)
+              return false
             }}
             type="button"
             className="text-2xl text-theme-white cursor-pointer 
@@ -122,14 +112,12 @@ const Header = ({ content }) => {
                   className="text-theme-light-white uppercase hover:text-theme-light-white transition-all ease-in-out mb-8 p-2"
                 >
                   <Link passHref href={`${href}`}>
-                    <a>
                       <span
                         onClick={() => setIsOpen(!isOpen)}
                         className="font-mont text-xl font-semibold sm:text-2xl md:text-xl"
                       >
                         {name}
                       </span>
-                    </a>
                   </Link>
                 </div>
               ))}
@@ -144,7 +132,7 @@ const Header = ({ content }) => {
         </div>
       </Transition>
     </nav>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
