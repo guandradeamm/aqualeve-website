@@ -6,3 +6,4 @@ export { default as Localizacao } from "./views/Localizacao";
 export { default as Produtos } from "./views/Produtos";
 export { default as FloatingButton } from "./common/FloatingButton";
 export { default as Footer } from "./layout/Footer";
+export { default as EnvieCurriculo } from "./modal/EnvieCurriculo";

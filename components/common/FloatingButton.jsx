@@ -12,7 +12,7 @@ const FloatingButton = ({ content }) => {
         <a target={"_blank"} rel={"noreferrer"} className="w-full h-full z-10">
           <RiWhatsappFill className="text-6xl text-[#25B33C]" />
         </a>
-      </Link>
+       </Link>
       <div
         id={`${component}-background`}
         className="bg-white rounded-full h-full w-full absolute -z-10"

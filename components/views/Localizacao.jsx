@@ -1,9 +1,16 @@
-import React from "react";
-import Player from "react-player";
+import React, { useEffect } from "react"
+import Player from "react-player"
 
 const Localizacao = ({ content }) => {
-  const { locationVideo } = content[0];
-  const component = "localizacao";
+  const [hasWindow, setHasWindow] = React.useState(false)
+  const { locationVideo } = content[0]
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHasWindow(true)
+    }
+  }, [])
+
+  const component = "localizacao"
   return (
     <div
       id={component}
@@ -42,15 +49,17 @@ const Localizacao = ({ content }) => {
               className="w-full h-2/5 flex items-center justify-center
               lg:w-[45%] lg:h-full"
             >
-              <Player
-                url={locationVideo?.url}
-                loop={true}
-                playing={true}
-                muted={true}
-                width={"100%"}
-                height={"100%"}
-                playsinline={true}
-              />
+              {hasWindow && (
+                <Player
+                  url={locationVideo?.url}
+                  loop={true}
+                  playing={true}
+                  muted={true}
+                  width={"100%"}
+                  height={"100%"}
+                  playsinline={true}
+                />
+              )}
             </div>
             <div
               id={`${component}-map-container`}
@@ -82,7 +91,7 @@ const Localizacao = ({ content }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Localizacao;
+export default Localizacao

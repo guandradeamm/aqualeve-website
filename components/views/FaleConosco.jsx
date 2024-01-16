@@ -1,88 +1,67 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import Contact from "../images/Contact";
-import Input from "../common/Input";
-import { GrMail } from "react-icons/gr";
-import { ImPhone } from "react-icons/im";
-import * as yup from "yup";
+import emailjs from "emailjs-com"
+import React, { useRef, useState } from "react"
+import { GrMail } from "react-icons/gr"
+import { ImPhone } from "react-icons/im"
+import Contact from "../images/Contact"
 
 function FaleConosco() {
-  const component = "faleconosco";
-  const [user, setUser] = useState({
-    name: "",
+  const component = "faleconosco"
+  const form = useRef()
+  const [formulario, setFormulario] = useState({
+    nome: "",
     telefone: "",
     email: "",
     mensagem: "",
-  });
+  })
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormulario((prevFormulario) => ({
+      ...prevFormulario,
+      [name]: value,
+    }))
+  }
+  const defaultStyles =
+    "w-full border-theme-middle-blue h-full  rounded-xl lg:rounded-3xl border-2 p-2 lg:p-4 xl:p-8 text-xs lg:text-sm placeholder-theme-middle-blue hover:border-theme-green focus:border-theme-green focus:text-theme-green text-theme-middle-blue focus:outline-none active:border-theme-green focus:placeholder-theme-green uppercase"
 
-  const [status, setStatus] = useState({
-    type: "",
-    mensagem: "",
-  });
-
-  const handleInput = (e) =>
-    setUser({ ...user, [e.target.name]: e.target.value });
-
-  const submitContact = async (e) => {
-    e.preventDefault();
-
-    if (!(await validate())) return;
-
-    const saveDataForm = true;
-
-    if (saveDataForm) {
-      setStatus({
-        type: "success",
-        mensagem: "Usuário cadastrado com sucesso!",
-      });
-      setUser({
-        name: "",
-        telefone: "",
-        email: "",
-        mensagem: "",
-      });
-    } else {
-      setStatus({
-        type: "error",
-        mensagem: "Erro: Usuário não cadastrado com sucesso!",
-      });
-    }
-  };
-
-  async function validate() {
-    let schema = yup.object().shape({
-      mensagem: yup
-        .string("Erro: Necessário preencher o campo mensagem!")
-        .required("Erro:Necessário preencher o campo mensagem!"),
-      email: yup
-        .string("Erro: Necessário preencher o campo email!")
-        .required("Erro:Necessário preencher o campo email!")
-        .email("Erro: Necessário preencher o campo com e-mail válido!"),
-      telefone: yup
-        .string("Erro: Necessário preencher o campo telefone!")
-        .required("Erro:Necessário preencher o campo telefone!"),
-      name: yup
-        .string("Erro: Necessário preencher o campo nome!")
-        .required("Erro:Necessário preencher o campo nome!"),
-    });
-    try {
-      await schema.validate(user);
-      return true;
-    } catch (err) {
-      setStatus({
-        type: "error",
-        mensagem: err.errors,
-      });
-      return false;
-    }
+  const sendEmail = (e) => {
+    e.preventDefault()
+    emailjs
+      .sendForm(
+        "service_tuqvq1n",
+        "template_vmqz2vl",
+        form.current,
+        "jtJfa-fEZWBCEqgT8",
+      )
+      .then(
+        (result) => {
+          if (result.status === 200) {
+            alert("Mensagem enviada com sucesso !")
+            setFormulario({
+              nome: "",
+              telefone: "",
+              email: "",
+              mensagem: "",
+            })
+          } else {
+            alert(
+              "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente.",
+            )
+          }
+        },
+        (error) => {
+          alert(
+            "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente.",
+          )
+        },
+      )
   }
 
   return (
     <div
       id={component}
       className="content-base pb-6
-      sm:content-sm 
-      md:content-md 
+      sm:content-sm
+      md:content-md
       lg:content-lg lg:pb-0
       xl:content-xl"
     >
@@ -106,30 +85,16 @@ function FaleConosco() {
           md:max-w-lg
           lg:max-w-none"
         >
-          <div id={`${component}-alert`}>
-            {status.type === "success" ? (
-              <p style={{ color: "green" }}>{status.mensagem}</p>
-            ) : (
-              ""
-            )}
-            {status.type === "error" ? (
-              <p style={{ color: "#ff0000" }}>{status.mensagem}</p>
-            ) : (
-              ""
-            )}
-          </div>
-
           <form
-            name="contactForm"
-            id="contactForm"
-            method="post"
-            onSubmit={submitContact}
-            className="w-full h-5/6 
+            ref={form}
+            onSubmit={sendEmail}
+            className="w-full h-5/6
             lg:h-4/5 "
+            id="formulario-faleconosco"
           >
             <div
               id={`${component}-main`}
-              className="w-full h-full flex flex-col-reverse 
+              className="w-full h-full flex flex-col-reverse
               lg:flex-row"
             >
               <div
@@ -139,54 +104,44 @@ function FaleConosco() {
               >
                 <div
                   className="mt-0
-                lg:mt-14"
+                lg:mt-14 h-8 lg:h-12 xl:16"
                 >
-                  <Input
+                  <input
                     type="text"
-                    name="name"
-                    id="name"
-                    inputType="input"
+                    name="nome"
+                    value={formulario.nome}
                     placeholder="DIGITE SEU NOME"
-                    divStyle="h-8 lg:h-12 xl:16"
-                    onChange={handleInput}
-                    // value={user.name}
-                  ></Input>
+                    onChange={handleChange}
+                    className={defaultStyles}
+                  ></input>
                 </div>
-                <div className="flex items-center justify-between w-full mt-2 lg:mt-8 xl:mt-14">
-                  <Input
+                <div className="flex items-center justify-between mt-2 lg:mt-8 xl:mt-14 w-full h-8 lg:h-12 xl:16">
+                  <input
                     type="text"
                     name="telefone"
-                    id="telefone"
-                    inputType="mask"
+                    value={formulario.telefone}
+                    onChange={handleChange}
                     placeholder="(00)99999-9999"
-                    divStyle="w-[39%] lg:w-[47%] xl:w-[35%]h-8 lg:h-12 xl:16"
-                    mask="(99) 99999-9999"
-                    maskChar=""
-                    onChange={handleInput}
-                    // value={user.telefone}
-                  ></Input>
-                  <Input
+                    className={defaultStyles}
+                  ></input>
+                  <input
                     type="email"
                     name="email"
-                    id="email"
-                    inputType="input"
+                    value={formulario.email}
+                    onChange={handleChange}
                     placeholder="SEU E-MAIL"
-                    divStyle="w-[60%] lg:[52%] xl:[60%] h-8 lg:h-12 xl:16"
-                    onChange={handleInput}
-                    // value={user.email}
-                  ></Input>
+                    className={defaultStyles}
+                  ></input>
                 </div>
                 <div className="mt-2 lg:mt-8 xl:mt-14 lg:h-full">
-                  <Input
+                  <textarea
                     type="text"
                     name="mensagem"
-                    id="mensagem"
-                    inputType="textarea"
+                    value={formulario.mensagem}
+                    onChange={handleChange}
                     placeholder="DIGITE SUA MENSAGEM"
-                    divStyle="lg:h-full h-24"
-                    onChange={handleInput}
-                    value={user.mensagem}
-                  ></Input>
+                    className={defaultStyles}
+                  />
                 </div>
                 <button
                   type="submit"
@@ -225,7 +180,7 @@ function FaleConosco() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default FaleConosco;
+export default FaleConosco
