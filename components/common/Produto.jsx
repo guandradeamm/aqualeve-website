@@ -53,6 +53,7 @@ const Produto = ({ data }) => {
           <Image
             src={data?.image?.url}
             layout="fill"
+            unoptimized
             className="object-contain object-center w-full h-full"
           />
         </div>
