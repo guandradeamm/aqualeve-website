@@ -3,7 +3,6 @@ import Link from "next/link"
 import React, { useState } from "react"
 import { GrInstagram } from "react-icons/gr"
 import { IoCloseOutline, IoMenuSharp } from "react-icons/io5"
-import { EnvieCurriculo } from "../../components"
 import { Logo } from "../images"
 
 const Header = ({ content }) => {

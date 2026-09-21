@@ -1,0 +1,14 @@
+---
+description: Quality Gate obrigatório para PRs de front-end (lint, testes, build, E2E e revisão de impacto).
+alwaysApply: true
+---
+
+# Quality Gate
+
+Antes de considerar uma alteração pronta, rode `npm run verify` e siga `docs/development/quality-gate.md`.
+
+O projeto é JavaScript (Next.js 12). Não adicione TypeScript só para ter typecheck. A análise estática é `npm run lint`.
+
+Se a mudança tocar `lib/cms.js`, `next.config.js`, Header, Footer, FloatingButton, Fale Conosco, Empresa, Produtos ou `getStaticProps`, atualize o teste de comportamento correspondente em `tests/unit` ou `e2e/`.
+
+PR só está pronto com lint, testes, build e E2E verdes, mais revisão de impacto em componentes compartilhados.

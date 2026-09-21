@@ -20,6 +20,7 @@ const Empresa = ({ data }) => {
           layout="fill"
           unoptimized
           src={data?.image?.url}
+          alt={data?.name || "Empresa Aqualeve"}
           className="object-cover object-center h-full w-full rounded-3xl
           lg:object-cover 
           xl:object-cover"
