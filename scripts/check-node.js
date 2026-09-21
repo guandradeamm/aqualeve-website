@@ -1,8 +1,9 @@
 const major = Number(process.versions.node.split(".")[0]);
+const supported = new Set([20, 22, 24]);
 
-if (major !== 18) {
+if (!supported.has(major)) {
   console.error(
-    `Next 12 neste projeto precisa de Node 18 (agora ${process.version}).\nRode: nvm use`
+    `Este projeto precisa de Node 20, 22 ou 24 (agora ${process.version}).\nRode: nvm use`
   );
   process.exit(1);
 }

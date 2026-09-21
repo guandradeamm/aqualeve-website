@@ -2,7 +2,7 @@
   "private": true,
   "packageManager": "npm@10.8.2",
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "node scripts/check-node.js && next dev",

@@ -10,7 +10,7 @@ Este projeto é **JavaScript** (Next.js 12, Pages Router). Não há TypeScript; 
 
 ## Ambiente
 
-- **Node 18** (`.nvmrc`, `engines.node`, `scripts/check-node.js`). Next 12.0.8 no Node 22 quebra `next dev`/`next start` com `Cannot find module './undefined'`.
+- **Node 22** (`.nvmrc`, `engines.node`). Vercel não aceita mais Node 18; 20/22/24 funcionam com este Next 12. Local e CI usam 22.
 - **npm** é o gerenciador oficial (`package-lock.json`, `packageManager` no `package.json`). Não use Yarn.
 
 ```bash
@@ -54,7 +54,7 @@ Instalação usa `.npmrc` com `legacy-peer-deps=true` (peer antigo de `html-reac
 
 O workflow `.github/workflows/quality-gate.yml` roda em todo PR e em push para `main`:
 
-`lint → test → build → smoke HTTP → Playwright contra next start` (Node 18)
+`lint → test → build → smoke HTTP → Playwright contra next start` (Node 22)
 
 O check se chama **Quality Gate**. A branch `main` exige esse check (`strict`: o branch precisa estar atualizado com `main`).
 
@@ -99,7 +99,7 @@ Além do `verify`: conferir desktop e mobile, overflow, imagens quebradas e o fo
 
 ## PR pronto para produção
 
-- `nvm use` (Node 18)
+- `nvm use` (Node 22)
 - `npm run verify` verde localmente
 - CI **Quality Gate** verde
 - checklist do PR preenchido
