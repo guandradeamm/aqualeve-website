@@ -52,7 +52,9 @@ const Produto = ({ data }) => {
         >
           <Image
             src={data?.image?.url}
+            alt={data?.name || "Produto Aqualeve"}
             layout="fill"
+            unoptimized
             className="object-contain object-center w-full h-full"
           />
         </div>
@@ -83,7 +85,7 @@ const Produto = ({ data }) => {
       lg:block lg:border-[5px] 
       xl:border-[15px]"
       >
-        <img src={data?.image?.url} className="object-contain w-full" />
+        <img src={data?.image?.url} alt={data?.name || "Produto Aqualeve"} className="object-contain w-full" />
       </div>
     </div>
   );

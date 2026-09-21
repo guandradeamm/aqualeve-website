@@ -22,6 +22,7 @@ const Hero = ({ content }) => {
         <Image
           priority
           src="/assets/img/banner.jpg"
+          alt="A água mais pura de Minas"
           layout="fill"
           className="object-right-bottom object-cover w-full h-full"
         />

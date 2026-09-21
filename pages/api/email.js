@@ -1,12 +1,10 @@
-import * as sgMail from '@sendgrid/mail'
-import {NextApiRequest, NextApiResponse}from 'next'
+import * as sgMail from "@sendgrid/mail";
 
-export default async function handler(req, res){
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-    const {name, email, message} = req.body
-    const msg = {
-        to: process.env.EMAIL_RECIPIENT,
-        from: 'emaildapessoa@gmail.com',
-        subject: 'Message'
-    }       
+export default async function handler(req, res) {
+  if (!process.env.SENDGRID_API_KEY) {
+    return res.status(501).json({ error: "Not implemented" });
+  }
+
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  return res.status(501).json({ error: "Not implemented" });
 }

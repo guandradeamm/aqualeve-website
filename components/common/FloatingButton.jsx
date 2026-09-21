@@ -8,7 +8,7 @@ const FloatingButton = ({ content }) => {
       id={`${component}`}
       className="fixed z-50 bottom-4 right-4 flex items-center justify-center rounded-full shadow-theme-green/70 shadow-xl"
     >
-      <Link href={content?.href} passHref>
+      <Link href={content?.href || "#faleconosco"} passHref>
         <a target={"_blank"} rel={"noreferrer"} className="w-full h-full z-10">
           <RiWhatsappFill className="text-6xl text-[#25B33C]" />
         </a>

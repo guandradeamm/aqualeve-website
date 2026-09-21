@@ -1,0 +1,62 @@
+name: Quality Gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_PUBLIC_GRAPHCMS_ENDPOINT: ${{ secrets.NEXT_PUBLIC_GRAPHCMS_ENDPOINT }}
+      NEXT_PUBLIC_GRAPHCMS_MEDIA_ENDPOINT: ${{ secrets.NEXT_PUBLIC_GRAPHCMS_MEDIA_ENDPOINT }}
+      GRAPHCMS_TOKEN: ${{ secrets.GRAPHCMS_TOKEN }}
+      CI: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Production build
+        run: npm run build
+
+      - name: E2E smoke
+        run: npm run test:e2e
+        env:
+          E2E_PORT: "3010"
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Free Playwright port
+        run: |
+          if command -v fuser >/dev/null 2>&1; then
+            fuser -k 3001/tcp || true
+          fi
+          sleep 1
+
+      - name: Confirm production build still exists
+        run: test -f .next/BUILD_ID
+
+      - name: E2E browser
+        run: npm run test:e2e:browser
+        env:
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:3001
