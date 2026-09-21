@@ -53,6 +53,9 @@ jobs:
           fi
           sleep 1
 
+      - name: Confirm production build still exists
+        run: test -f .next/BUILD_ID
+
       - name: E2E browser
         run: npm run test:e2e:browser
         env:

@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 
 const { spawn } = require("child_process");
+const fs = require("fs");
 const http = require("http");
 const net = require("net");
+const path = require("path");
 
 const PORT = process.env.E2E_PORT || "3010";
 const BASE_URL = `http://127.0.0.1:${PORT}`;
+const hasProductionBuild = fs.existsSync(
+  path.join(process.cwd(), ".next", "BUILD_ID")
+);
 
 function request(path) {
   return new Promise((resolve, reject) => {
@@ -113,7 +118,13 @@ async function runSmoke(html) {
 }
 
 async function main() {
-  const child = spawn("npx", ["next", "dev", "-p", PORT], {
+  // Prefer production server when a build already exists (CI / npm run verify).
+  // next dev rewrites .next and would break the following Playwright `next start`.
+  const nextArgs = hasProductionBuild
+    ? ["next", "start", "-p", PORT]
+    : ["next", "dev", "-p", PORT];
+
+  const child = spawn("npx", nextArgs, {
     stdio: "pipe",
     env: process.env,
     detached: true,
@@ -127,7 +138,9 @@ async function main() {
       throw new Error(`Home returned ${page.status}`);
     }
     await runSmoke(page.body);
-    console.log("e2e smoke passed");
+    console.log(
+      `e2e smoke passed (${hasProductionBuild ? "next start" : "next dev"} :${PORT})`
+    );
   } catch (error) {
     failed = true;
     console.error(error.message || error);
