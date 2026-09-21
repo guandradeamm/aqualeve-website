@@ -3,7 +3,11 @@ import {
   normalizeContactPayload,
   validateContactPayload,
 } from "../../lib/contact";
-import { deliverFormSubmitJson } from "../../lib/formsubmit";
+import {
+  buildContactFormSubmitFields,
+  deliverFormSubmitJson,
+  resolveRequestOrigin,
+} from "../../lib/formsubmit";
 import { getSmtpConfig, sendContactEmail } from "../../lib/mail";
 
 export default async function handler(req, res) {
@@ -24,26 +28,13 @@ export default async function handler(req, res) {
 
   try {
     const provider = process.env.CONTACT_PROVIDER || "auto";
-    const origin =
-      req.headers.origin ||
-      (req.headers.host ? `http://${req.headers.host}` : "");
+    const origin = resolveRequestOrigin(req);
 
     if ((provider === "smtp" || provider === "auto") && getSmtpConfig()) {
       await sendContactEmail(payload);
     } else {
       await deliverFormSubmitJson(
-        {
-          Nome: payload.nome,
-          "E-mail": payload.email,
-          Telefone: payload.telefone || "Não informado",
-          Mensagem: payload.mensagem,
-          Idioma: "Português (Brasil)",
-          Origem: "Site Aqualeve — Fale conosco",
-          _subject: `Contato pelo site Aqualeve — ${payload.nome}`,
-          _replyto: payload.email,
-          _template: "table",
-          _captcha: "false",
-        },
+        buildContactFormSubmitFields(payload),
         origin
       );
     }

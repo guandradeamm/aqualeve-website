@@ -7,6 +7,7 @@ import {
   normalizeContactPayload,
   validateContactPayload,
 } from "../../lib/contact";
+import { submitContactFromBrowser } from "../../lib/formsubmit";
 import { formatBrazilianPhone, isValidBrazilianPhone } from "../../lib/phone";
 
 const emptyForm = {
@@ -77,19 +78,9 @@ function FaleConosco() {
     setErrors({});
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        if (data.errors) {
-          setErrors(data.errors);
-        }
-        throw new Error(data.error || "Falha no envio");
-      }
+      // Envia direto do browser para o FormSubmit (a origem real do site).
+      // O proxy /api/contact na Vercel costuma falhar na ativação/origem.
+      await submitContactFromBrowser(payload);
 
       setFormulario(emptyForm);
       setStatus("success");
