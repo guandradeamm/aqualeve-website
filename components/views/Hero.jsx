@@ -1,7 +1,6 @@
 import React from "react";
 import { GrInstagram } from "react-icons/gr";
 import Image from "next/image";
-import Link from "next/link";
 
 const Hero = ({ content }) => {
   const { instagram } = content;
@@ -28,14 +27,17 @@ const Hero = ({ content }) => {
         />
       </div>
       <div className="lg:hidden w-full h-1/2 flex justify-center">
-        <Link href={instagram?.href} passHref>
-            <button className="uppercase text-theme-white bg-theme-yellow rounded-full p-4 sm:p-6 font-mont font-semibold text-lg md:text-xl hover:bg-theme-orange">
-              <span className=" flex items-center">
-                siga no instagram
-                <GrInstagram className="text-theme-white w-5 h-5 ml-4" />
-              </span>
-            </button>
-        </Link>
+        <a
+          href={instagram?.href || "https://www.instagram.com/"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="uppercase text-theme-white bg-theme-yellow rounded-full p-4 sm:p-6 font-mont font-semibold text-lg md:text-xl hover:bg-theme-orange"
+        >
+          <span className=" flex items-center">
+            siga no instagram
+            <GrInstagram className="text-theme-white w-5 h-5 ml-4" />
+          </span>
+        </a>
       </div>
     </div>
   );

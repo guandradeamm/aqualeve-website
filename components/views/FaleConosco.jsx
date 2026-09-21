@@ -1,60 +1,111 @@
-import emailjs from "emailjs-com"
-import React, { useRef, useState } from "react"
-import { GrMail } from "react-icons/gr"
-import { ImPhone } from "react-icons/im"
-import Contact from "../images/Contact"
+import React, { useState } from "react";
+import { GrMail } from "react-icons/gr";
+import { ImPhone } from "react-icons/im";
+import Contact from "../images/Contact";
+import {
+  CONTACT_EMAIL,
+  normalizeContactPayload,
+  validateContactPayload,
+} from "../../lib/contact";
+import { formatBrazilianPhone, isValidBrazilianPhone } from "../../lib/phone";
+
+const emptyForm = {
+  nome: "",
+  telefone: "",
+  email: "",
+  mensagem: "",
+};
 
 function FaleConosco() {
-  const component = "faleconosco"
-  const form = useRef()
-  const [formulario, setFormulario] = useState({
-    nome: "",
-    telefone: "",
-    email: "",
-    mensagem: "",
-  })
+  const component = "faleconosco";
+  const [formulario, setFormulario] = useState(emptyForm);
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("idle");
+  const [feedback, setFeedback] = useState("");
+
+  const defaultStyles =
+    "w-full border-theme-middle-blue h-full rounded-xl lg:rounded-3xl border-2 p-2 lg:p-4 xl:p-8 text-xs lg:text-sm placeholder-theme-middle-blue hover:border-theme-green focus:border-theme-green focus:text-theme-green text-theme-middle-blue focus:outline-none active:border-theme-green focus:placeholder-theme-green uppercase";
+
+  const errorStyles = "border-red-500 focus:border-red-500";
+
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name } = e.target;
+    let { value } = e.target;
+
+    if (name === "telefone") {
+      value = formatBrazilianPhone(value);
+    }
+
     setFormulario((prevFormulario) => ({
       ...prevFormulario,
       [name]: value,
-    }))
-  }
-  const defaultStyles =
-    "w-full border-theme-middle-blue h-full  rounded-xl lg:rounded-3xl border-2 p-2 lg:p-4 xl:p-8 text-xs lg:text-sm placeholder-theme-middle-blue hover:border-theme-green focus:border-theme-green focus:text-theme-green text-theme-middle-blue focus:outline-none active:border-theme-green focus:placeholder-theme-green uppercase"
+    }));
+    setErrors((prev) => ({ ...prev, [name]: undefined }));
+    if (status !== "idle") {
+      setStatus("idle");
+      setFeedback("");
+    }
+  };
 
-  const sendEmail = (e) => {
-    e.preventDefault()
-    emailjs
-      .sendForm(
-        "service_tuqvq1n",
-        "template_vmqz2vl",
-        form.current,
-        "jtJfa-fEZWBCEqgT8",
-      )
-      .then(
-        (result) => {
-          if (result.status === 200) {
-            alert("Mensagem enviada com sucesso !")
-            setFormulario({
-              nome: "",
-              telefone: "",
-              email: "",
-              mensagem: "",
-            })
-          } else {
-            alert(
-              "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente.",
-            )
-          }
-        },
-        (error) => {
-          alert(
-            "Ocorreu algum erro, favor conferir se os campos estão preenchidos corretamente.",
-          )
-        },
-      )
-  }
+  const fieldClass = (name) =>
+    `${defaultStyles}${errors[name] ? ` ${errorStyles}` : ""}`;
+
+  const sendEmail = async (e) => {
+    e.preventDefault();
+
+    const payload = normalizeContactPayload(formulario);
+    const validation = validateContactPayload(payload);
+
+    if (!validation.ok) {
+      setErrors(validation.errors);
+      setStatus("error");
+      setFeedback("Confira os campos destacados e tente novamente.");
+      return;
+    }
+
+    if (payload.telefone && !isValidBrazilianPhone(payload.telefone)) {
+      setErrors({
+        telefone: "Informe um telefone brasileiro válido com DDD.",
+      });
+      setStatus("error");
+      setFeedback("Confira os campos destacados e tente novamente.");
+      return;
+    }
+
+    setStatus("sending");
+    setFeedback("Enviando mensagem...");
+    setErrors({});
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        if (data.errors) {
+          setErrors(data.errors);
+        }
+        throw new Error(data.error || "Falha no envio");
+      }
+
+      setFormulario(emptyForm);
+      setStatus("success");
+      setFeedback(
+        `Mensagem enviada com sucesso para ${CONTACT_EMAIL}. Em breve retornaremos o contato.`
+      );
+    } catch (error) {
+      setStatus("error");
+      setFeedback(
+        error.message ||
+          "Não foi possível enviar a mensagem agora. Tente novamente."
+      );
+    }
+  };
+
+  const isSending = status === "sending";
 
   return (
     <div
@@ -86,11 +137,11 @@ function FaleConosco() {
           lg:max-w-none"
         >
           <form
-            ref={form}
             onSubmit={sendEmail}
             className="w-full h-5/6
             lg:h-4/5 "
             id="formulario-faleconosco"
+            noValidate
           >
             <div
               id={`${component}-main`}
@@ -112,43 +163,83 @@ function FaleConosco() {
                     value={formulario.nome}
                     placeholder="DIGITE SEU NOME"
                     onChange={handleChange}
-                    className={defaultStyles}
-                  ></input>
+                    className={fieldClass("nome")}
+                    aria-invalid={Boolean(errors.nome)}
+                    disabled={isSending}
+                    required
+                  />
                 </div>
-                <div className="flex items-center justify-between mt-2 lg:mt-8 xl:mt-14 w-full h-8 lg:h-12 xl:16">
+                {errors.nome ? (
+                  <p className="mt-1 text-xs text-red-600">{errors.nome}</p>
+                ) : null}
+                <div className="flex items-center justify-between gap-2 mt-2 lg:mt-8 xl:mt-14 w-full h-8 lg:h-12 xl:16">
                   <input
-                    type="text"
+                    type="tel"
                     name="telefone"
                     value={formulario.telefone}
                     onChange={handleChange}
-                    placeholder="(00)99999-9999"
-                    className={defaultStyles}
-                  ></input>
+                    placeholder="(00) 99999-9999"
+                    inputMode="numeric"
+                    autoComplete="tel-national"
+                    maxLength={15}
+                    className={fieldClass("telefone")}
+                    aria-invalid={Boolean(errors.telefone)}
+                    disabled={isSending}
+                  />
                   <input
                     type="email"
                     name="email"
                     value={formulario.email}
                     onChange={handleChange}
                     placeholder="SEU E-MAIL"
-                    className={defaultStyles}
-                  ></input>
+                    className={fieldClass("email")}
+                    aria-invalid={Boolean(errors.email)}
+                    disabled={isSending}
+                    required
+                  />
                 </div>
+                {errors.telefone ? (
+                  <p className="mt-1 text-xs text-red-600">{errors.telefone}</p>
+                ) : null}
+                {errors.email ? (
+                  <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+                ) : null}
                 <div className="mt-2 lg:mt-8 xl:mt-14 lg:h-full">
                   <textarea
-                    type="text"
                     name="mensagem"
                     value={formulario.mensagem}
                     onChange={handleChange}
                     placeholder="DIGITE SUA MENSAGEM"
-                    className={defaultStyles}
+                    className={fieldClass("mensagem")}
+                    aria-invalid={Boolean(errors.mensagem)}
+                    disabled={isSending}
+                    required
                   />
                 </div>
+                {errors.mensagem ? (
+                  <p className="mt-1 text-xs text-red-600">{errors.mensagem}</p>
+                ) : null}
+                {feedback ? (
+                  <p
+                    role="status"
+                    className={`mt-3 text-sm font-mont ${
+                      status === "success"
+                        ? "text-theme-green"
+                        : status === "error"
+                        ? "text-red-600"
+                        : "text-theme-middle-blue"
+                    }`}
+                  >
+                    {feedback}
+                  </p>
+                ) : null}
                 <button
                   type="submit"
                   value="enviar"
-                  className="lg:hidden rounded-full uppercase bg-theme-yellow hover:bg-theme-orange lg:w-3/5 w-4/5 lg:h-20 h-8 text-theme-white lg:font-semibold font-medium lg:text-xl text-base font-mont lg:mt-14 mt-4 lg:ml-14 ml-8"
+                  disabled={isSending}
+                  className="lg:hidden rounded-full uppercase bg-theme-yellow hover:bg-theme-orange disabled:opacity-60 disabled:cursor-not-allowed lg:w-3/5 w-4/5 lg:h-20 h-8 text-theme-white lg:font-semibold font-medium lg:text-xl text-base font-mont lg:mt-14 mt-4 lg:ml-14 ml-8"
                 >
-                  enviar mensagem
+                  {isSending ? "enviando..." : "enviar mensagem"}
                 </button>
               </div>
               <div
@@ -157,22 +248,29 @@ function FaleConosco() {
               >
                 <Contact className="h-3/4 xl:h-4/5 w-full" />
 
-                <div className="h-1/4 w-11/12 lg:w-full rounded-2xl bg-theme-dark-blue text-theme-white flex  flex-col justify-between p-2 lg:p-4 text-sm lg:text-base xl:text-xl ">
-                  <p className="text-theme-white flex  ml-4">
+                <div className="h-1/4 w-11/12 lg:w-full rounded-2xl bg-theme-dark-blue text-theme-white flex flex-col justify-between p-2 lg:p-4 text-sm lg:text-base xl:text-xl ">
+                  <a
+                    href="tel:+5531999094098"
+                    className="text-theme-white flex ml-4 hover:text-theme-light-blue"
+                  >
                     <ImPhone className="text-theme-light-blue lg:text-lg xl:text-xl lg:mr-6 xl:mr-10 mr-4" />
                     +55 31 99909-4098
-                  </p>
-                  <p className="text-theme-white flex ml-4">
+                  </a>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="text-theme-white flex ml-4 hover:text-theme-light-blue"
+                  >
                     <GrMail className="text-theme-light-blue lg:text-lg xl:text-xl lg:mr-6 xl:mr-10 mr-4" />
-                    contatoaqualeve@gmail.com
-                  </p>
+                    {CONTACT_EMAIL}
+                  </a>
                 </div>
                 <button
                   type="submit"
                   value="enviar"
-                  className="hidden items-center lg:block rounded-full uppercase bg-theme-yellow hover:bg-theme-orange lg:w-4/5 xl:w-3/5 lg:h-1/6 xl:3/5 text-theme-white font-semibold text-xl font-mont lg:mt-8 xl:mt-14"
+                  disabled={isSending}
+                  className="hidden items-center lg:block rounded-full uppercase bg-theme-yellow hover:bg-theme-orange disabled:opacity-60 disabled:cursor-not-allowed lg:w-4/5 xl:w-3/5 lg:h-1/6 xl:3/5 text-theme-white font-semibold text-xl font-mont lg:mt-8 xl:mt-14"
                 >
-                  enviar mensagem
+                  {isSending ? "enviando..." : "enviar mensagem"}
                 </button>
               </div>
             </div>
@@ -180,7 +278,7 @@ function FaleConosco() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default FaleConosco
+export default FaleConosco;
