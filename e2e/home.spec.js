@@ -20,6 +20,9 @@ test.describe("homepage critical flows", () => {
     await expect(page.getByPlaceholder("DIGITE SEU NOME")).toBeVisible();
     await expect(page.getByPlaceholder("SEU E-MAIL")).toBeVisible();
     await expect(page.getByPlaceholder("DIGITE SUA MENSAGEM")).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: /contatoaqualeve@gmail\.com/i })
+    ).toHaveAttribute("href", "mailto:contatoaqualeve@gmail.com");
 
     const whatsapp = page.locator("#floating-button a");
     await expect(whatsapp).toBeVisible();

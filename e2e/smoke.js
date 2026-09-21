@@ -109,6 +109,7 @@ async function runSmoke(html) {
   assertContains(html, "formulario-faleconosco", "contact form");
   assertContains(html, "DIGITE SEU NOME", "name field");
   assertContains(html, "SEU E-MAIL", "email field");
+  assertContains(html, "contatoaqualeve@gmail.com", "contact inbox");
   assertContains(html, "floating-button", "WhatsApp CTA");
   assertContains(html, "graphassets.com", "Hygraph images");
 
