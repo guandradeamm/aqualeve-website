@@ -16,7 +16,7 @@
 - [ ] `npm run build` executado
 - [ ] `npm run test:e2e` executado
 - [ ] `npm run test:e2e:browser` executado no CI (Playwright)
-- [ ] `npm run verify` passou localmente (Node 18, `nvm use`)
+- [ ] `npm run verify` passou localmente (Node 22, `nvm use`)
 - [ ] CI **Quality Gate** passou
 
 ### Regressão
