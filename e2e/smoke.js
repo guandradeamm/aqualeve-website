@@ -2,8 +2,9 @@
 
 const { spawn } = require("child_process");
 const http = require("http");
+const net = require("net");
 
-const PORT = process.env.E2E_PORT || "3001";
+const PORT = process.env.E2E_PORT || "3010";
 const BASE_URL = `http://127.0.0.1:${PORT}`;
 
 function request(path) {
@@ -51,6 +52,44 @@ function waitForServer(timeoutMs = 60000) {
   });
 }
 
+function isPortFree(port) {
+  return new Promise((resolve) => {
+    const server = net.createServer();
+    server.unref();
+    server.on("error", () => resolve(false));
+    server.listen(port, "127.0.0.1", () => {
+      server.close(() => resolve(true));
+    });
+  });
+}
+
+async function waitForPortFree(port, timeoutMs = 15000) {
+  const started = Date.now();
+  while (Date.now() - started < timeoutMs) {
+    if (await isPortFree(Number(port))) {
+      return;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  }
+  throw new Error(`Port ${port} stayed busy after stopping the smoke server`);
+}
+
+function stopServer(child) {
+  if (!child || child.killed) {
+    return;
+  }
+
+  try {
+    process.kill(-child.pid, "SIGKILL");
+  } catch (error) {
+    try {
+      child.kill("SIGKILL");
+    } catch (_) {
+      // already gone
+    }
+  }
+}
+
 function assertContains(html, snippet, label) {
   if (!html.includes(snippet)) {
     throw new Error(`Missing ${label}: ${snippet}`);
@@ -77,6 +116,7 @@ async function main() {
   const child = spawn("npx", ["next", "dev", "-p", PORT], {
     stdio: "pipe",
     env: process.env,
+    detached: true,
   });
 
   let failed = false;
@@ -92,7 +132,13 @@ async function main() {
     failed = true;
     console.error(error.message || error);
   } finally {
-    child.kill("SIGTERM");
+    stopServer(child);
+    try {
+      await waitForPortFree(PORT);
+    } catch (error) {
+      failed = true;
+      console.error(error.message || error);
+    }
   }
 
   process.exit(failed ? 1 : 0);

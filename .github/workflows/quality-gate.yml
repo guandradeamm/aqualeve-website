@@ -40,9 +40,20 @@ jobs:
 
       - name: E2E smoke
         run: npm run test:e2e
+        env:
+          E2E_PORT: "3010"
 
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
+      - name: Free Playwright port
+        run: |
+          if command -v fuser >/dev/null 2>&1; then
+            fuser -k 3001/tcp || true
+          fi
+          sleep 1
+
       - name: E2E browser
         run: npm run test:e2e:browser
+        env:
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:3001

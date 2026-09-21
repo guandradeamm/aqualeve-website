@@ -34,7 +34,7 @@ Falha na primeira etapa com erro:
 1. `npm run lint` — ESLint (`next/core-web-vitals`), ignorando SVGs gerados em `components/images`.
 2. `npm run test` — Jest + Testing Library (CMS, hosts de imagem, Header, Fale Conosco, CTA).
 3. `npm run build` — `next build` (precisa das env vars do Hygraph).
-4. `npm run test:e2e` — smoke HTTP da home (título, seções, formulário, CTA, imagens Hygraph).
+4. `npm run test:e2e` — smoke HTTP da home na porta **3010** (título, seções, formulário, CTA, imagens Hygraph).
 
 Atalhos:
 
@@ -46,7 +46,7 @@ npm run test:e2e
 npm run test:e2e:browser
 ```
 
-`test:e2e:browser` (Playwright desktop/mobile) roda no **CI**. Localmente o Chromium do Playwright precisa de libs do sistema (`npx playwright install-deps`); neste WSL isso exige sudo.
+`test:e2e:browser` (Playwright desktop/mobile) roda no **CI** contra `next start` na porta **3001**, separada do smoke. Localmente o Chromium do Playwright precisa de libs do sistema (`npx playwright install-deps`); neste WSL isso exige sudo.
 
 Instalação usa `.npmrc` com `legacy-peer-deps=true` (peer antigo de `html-react-parser`) e `engine-strict=true`.
 
