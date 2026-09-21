@@ -56,12 +56,12 @@ describe("FaleConosco", () => {
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
-  it("posts to /api/contact and clears fields on success", async () => {
+  it("posts directly to FormSubmit and clears fields on success", async () => {
     global.fetch.mockResolvedValue({
       ok: true,
       json: async () => ({
-        ok: true,
-        message: "Mensagem enviada para contatoaqualeve@gmail.com.",
+        success: "true",
+        message: "The form was submitted successfully.",
       }),
     });
 
@@ -80,21 +80,26 @@ describe("FaleConosco", () => {
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith(
-        "/api/contact",
+        "https://formsubmit.co/ajax/contatoaqualeve@gmail.com",
         expect.objectContaining({
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
         })
       );
     });
 
     const [, options] = global.fetch.mock.calls[0];
-    expect(JSON.parse(options.body)).toEqual({
-      nome: "Maria",
-      telefone: "",
-      email: "maria@example.com",
-      mensagem: "Quero um orçamento completo.",
-    });
+    expect(JSON.parse(options.body)).toEqual(
+      expect.objectContaining({
+        Nome: "Maria",
+        "E-mail": "maria@example.com",
+        Mensagem: "Quero um orçamento completo.",
+        Idioma: "Português (Brasil)",
+      })
+    );
 
     await waitFor(() => {
       expect(screen.getByPlaceholderText("DIGITE SEU NOME")).toHaveValue("");
@@ -116,12 +121,12 @@ describe("FaleConosco", () => {
     );
   });
 
-  it("shows an error when the contact API fails", async () => {
+  it("shows an error when FormSubmit rejects the request", async () => {
     global.fetch.mockResolvedValue({
-      ok: false,
+      ok: true,
       json: async () => ({
-        error:
-          "Não foi possível enviar a mensagem agora. Tente novamente em instantes.",
+        success: "false",
+        message: "Não foi possível enviar a mensagem.",
       }),
     });
 
@@ -139,9 +144,7 @@ describe("FaleConosco", () => {
     fireEvent.submit(document.getElementById("formulario-faleconosco"));
 
     expect(
-      await screen.findByText(
-        "Não foi possível enviar a mensagem agora. Tente novamente em instantes."
-      )
+      await screen.findByText("Não foi possível enviar a mensagem.")
     ).toBeInTheDocument();
   });
 });
