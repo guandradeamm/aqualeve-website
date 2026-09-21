@@ -6,9 +6,16 @@ test.describe("homepage critical flows", () => {
     expect(response.ok()).toBeTruthy();
     await expect(page).toHaveTitle(/Aqualeve/i);
 
-    await expect(page.getByRole("heading", { name: /EMPRESA/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /PRODUTOS/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /fale conosco/i })).toBeVisible();
+    // Scope to section ids and use exact names: empresa body copy contains "produtos".
+    await expect(
+      page.locator("#empresa").getByRole("heading", { name: "EMPRESA", exact: true })
+    ).toBeVisible();
+    await expect(
+      page.locator("#produtos").getByRole("heading", { name: "PRODUTOS", exact: true })
+    ).toBeVisible();
+    await expect(
+      page.locator("#faleconosco").getByRole("heading", { name: /fale conosco/i })
+    ).toBeVisible();
 
     await expect(page.getByPlaceholder("DIGITE SEU NOME")).toBeVisible();
     await expect(page.getByPlaceholder("SEU E-MAIL")).toBeVisible();
@@ -21,9 +28,22 @@ test.describe("homepage critical flows", () => {
 
   test("empresa images come from Hygraph instead of a broken optimizer URL", async ({ page }) => {
     await page.goto("/");
-    const empresaImages = page.locator("#empresa img[src*='graphassets.com']");
-    await expect(empresaImages.first()).toBeVisible();
-    const src = await empresaImages.first().getAttribute("src");
-    expect(src).not.toContain("/_next/image");
+    await page.locator("#empresa").scrollIntoViewIfNeeded();
+
+    const empresa = page.locator("#empresa");
+    await expect(empresa).toBeVisible();
+
+    // Swiper may keep inactive slides off-screen; assert markup, not viewport visibility.
+    await expect
+      .poll(async () => empresa.innerHTML(), { timeout: 15000 })
+      .toMatch(/graphassets\.com/);
+
+    const markup = await empresa.innerHTML();
+    expect(markup).not.toMatch(/\/_next\/image\?url=[^"']*graphassets/);
+
+    const directImage = empresa.locator(
+      'img[src*="graphassets.com"], img[srcset*="graphassets.com"]'
+    );
+    await expect(directImage.first()).toBeAttached();
   });
 });
