@@ -82,4 +82,30 @@ describe("Header", () => {
     expect(instagram).toHaveAttribute("target", "_blank");
     expect(instagram).toHaveAttribute("rel", "noopener noreferrer");
   });
+
+  it("shows Instagram CTA in the mobile menu like the resume button", () => {
+    render(
+      <Header
+        content={{
+          navigationLinks,
+          instagram: { href: "https://instagram.com/aguaaqualeve" },
+        }}
+      />
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: /open main menu/i }));
+
+    const mobileInstagram = screen.getByRole("link", {
+      name: /siga no instagram/i,
+    });
+    expect(mobileInstagram).toHaveAttribute(
+      "href",
+      "https://instagram.com/aguaaqualeve"
+    );
+    expect(mobileInstagram).toHaveAttribute("target", "_blank");
+    expect(mobileInstagram).toHaveAttribute("rel", "noopener noreferrer");
+    expect(
+      screen.getAllByRole("button", { name: /envie seu currículo/i }).length
+    ).toBeGreaterThan(0);
+  });
 });
