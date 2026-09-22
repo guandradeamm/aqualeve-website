@@ -102,7 +102,9 @@ function assertContains(html, snippet, label) {
 }
 
 async function runSmoke(html) {
-  assertContains(html, "<title>Aqualeve</title>", "page title");
+  if (!html.includes("<title>") || !/Aqualeve/i.test(html.match(/<title>([^<]*)<\/title>/)?.[1] || "")) {
+    throw new Error("Missing page title containing Aqualeve");
+  }
   assertContains(html, "EMPRESA", "Empresa section");
   assertContains(html, "PRODUTOS", "Produtos section");
   assertContains(html, "fale conosco", "contact section");

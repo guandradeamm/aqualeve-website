@@ -81,7 +81,7 @@ const Produto = ({ data }) => {
         </div>
       </div>
       <div
-        className="aspect-square hidden h-full max-h-[500px] rounded-full border-white bg-theme-orange
+        className="aspect-square hidden h-full max-h-[500px] rounded-full border-white bg-campaign-accent
       lg:block lg:border-[5px] 
       xl:border-[15px]"
       >

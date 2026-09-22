@@ -283,7 +283,13 @@ function EnvieCurriculo({ isOpen, closeIsOpen }) {
         />
 
         <div className="relative z-10 w-full max-w-xl overflow-hidden rounded-3xl bg-theme-light-white shadow-2xl shadow-theme-black/30">
-          <div className="bg-gradient-to-br from-theme-dark-blue via-theme-middle-blue to-theme-green px-6 py-5 text-theme-white sm:px-8">
+          <div
+            className="px-6 py-5 text-theme-white sm:px-8"
+            style={{
+              backgroundImage:
+                "linear-gradient(to bottom right, #023047, var(--campaign-modal-via), var(--campaign-modal-to))",
+            }}
+          >
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="font-mont text-xs font-semibold uppercase tracking-[0.2em] text-theme-light-blue">
@@ -483,7 +489,7 @@ function EnvieCurriculo({ isOpen, closeIsOpen }) {
               <button
                 type="submit"
                 disabled={isSending}
-                className="rounded-full bg-theme-yellow px-6 py-3 font-mont text-sm font-semibold uppercase text-theme-white transition hover:bg-theme-orange disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-full campaign-cta px-6 py-3 font-mont text-sm font-semibold uppercase text-theme-white transition disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSending ? "Enviando..." : "Enviar currículo"}
               </button>
