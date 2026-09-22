@@ -1,14 +1,22 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { resolveActiveCampaign } from "../lib/campaigns";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    const campaign = resolveActiveCampaign();
+    return {
+      ...initialProps,
+      campaignClass: campaign ? `campaign-${campaign.id}` : "",
+    };
   }
 
   render() {
+    const { campaignClass } = this.props;
+    const htmlClass = ["scroll-smooth", campaignClass].filter(Boolean).join(" ");
+
     return (
-      <Html className="scroll-smooth">
+      <Html className={htmlClass}>
         <Head>
           <link
             rel="apple-touch-icon"
