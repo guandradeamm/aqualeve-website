@@ -129,10 +129,20 @@ const Header = ({ content }) => {
                     </Link>
                   </div>
                 ))}
+                <a
+                  href={instagramHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="mb-8 uppercase text-theme-white bg-theme-yellow rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4 hover:bg-theme-orange inline-flex items-center justify-center gap-3"
+                >
+                  siga no instagram
+                  <GrInstagram className="text-theme-white w-5 h-5" aria-hidden />
+                </a>
                 <button
                   type="button"
                   onClick={openModal}
-                  className="uppercase text-theme-white bg-theme-yellow rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4"
+                  className="uppercase text-theme-white bg-theme-yellow rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4 hover:bg-theme-orange"
                 >
                   envie seu currículo
                 </button>

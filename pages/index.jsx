@@ -25,7 +25,7 @@ function Home({
       <Header content={{ navigationLinks, instagram }} />
       <main className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl snap-y snap-mandatory overflow-x-hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-theme-green">
         <div>
-          <Hero content={{ instagram }} />
+          <Hero />
         </div>
         <div>
           <Empresa content={empresas} />
