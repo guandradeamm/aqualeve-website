@@ -27,7 +27,7 @@ const Header = ({ content }) => {
     <Fragment>
       <nav
         id={component}
-        className="w-full h-base bg-theme-light-green border-theme-light-blue border-b-2 fixed z-50 top-0 left-0 right-0
+        className="w-full h-base bg-campaign-header border-campaign-header-border border-b-2 fixed z-50 top-0 left-0 right-0
       sm:h-sm 
       md:h-md 
       lg:h-lg"
@@ -53,10 +53,7 @@ const Header = ({ content }) => {
           >
             {navigationLinks.map(({ href, name, id }) => (
               <Link passHref key={id} href={href}>
-                <span
-                  className="text-theme-white uppercase p-3
-                hover:font-bold hover:bg-theme-yellow hover:rounded-full"
-                >
+                <span className="text-theme-white uppercase p-3 hover:font-bold hover:bg-campaign-nav-hover hover:rounded-full">
                   {name}
                 </span>
               </Link>
@@ -66,17 +63,15 @@ const Header = ({ content }) => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Abrir Instagram da Aqualeve em nova aba"
-              className="p-3 bg-theme-yellow text-theme-white flex items-center justify-center rounded-full text-lg
-              xl:text-xl 
-              hover:bg-theme-orange"
+              className="p-3 campaign-cta text-theme-white flex items-center justify-center rounded-full text-lg
+              xl:text-xl"
             >
               <GrInstagram />
             </a>
             <button
               type="button"
               onClick={openModal}
-              className="p-3 uppercase bg-theme-yellow text-theme-white rounded-full font-mont font-semibold 
-              hover:bg-theme-orange"
+              className="p-3 uppercase campaign-cta text-theme-white rounded-full font-mont font-semibold"
             >
               envie seu currículo
             </button>
@@ -112,7 +107,7 @@ const Header = ({ content }) => {
             className="lg:hidden overflow-hidden relative h-full w-full"
             id="mobile-menu"
           >
-            <div className="bg-theme-light-green h-full w-full md:h-1/2 md:w-3/5 top-0 right-0 z-40 py-8 flex flex-col absolute  rounded-bl-3xl">
+            <div className="bg-campaign-header h-full w-full md:h-1/2 md:w-3/5 top-0 right-0 z-40 py-8 flex flex-col absolute rounded-bl-3xl">
               <div className="flex flex-col items-center">
                 {navigationLinks.map(({ name, id, href }) => (
                   <div
@@ -134,7 +129,7 @@ const Header = ({ content }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
-                  className="mb-8 uppercase text-theme-white bg-theme-yellow rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4 hover:bg-theme-orange inline-flex items-center justify-center gap-3"
+                  className="mb-8 uppercase text-theme-white campaign-cta rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4 inline-flex items-center justify-center gap-3"
                 >
                   siga no instagram
                   <GrInstagram className="text-theme-white w-5 h-5" aria-hidden />
@@ -142,7 +137,7 @@ const Header = ({ content }) => {
                 <button
                   type="button"
                   onClick={openModal}
-                  className="uppercase text-theme-white bg-theme-yellow rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4 hover:bg-theme-orange"
+                  className="uppercase text-theme-white campaign-cta rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4"
                 >
                   envie seu currículo
                 </button>

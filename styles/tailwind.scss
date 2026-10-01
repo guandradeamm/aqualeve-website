@@ -4,6 +4,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Marca padrão — campanhas só sobrescrevem estas vars */
+:root {
+  --campaign-header: #bcdc79;
+  --campaign-header-border: #8ecae6;
+  --campaign-cta: #ffb703;
+  --campaign-cta-hover: #fb8500;
+  --campaign-heading: #9ecc3d;
+  --campaign-accent: #fb8500;
+  --campaign-nav-hover: #ffb703;
+  --campaign-overlay-from: transparent;
+  --campaign-overlay-via: transparent;
+  --campaign-modal-via: #219ebc;
+  --campaign-modal-to: #9ecc3d;
+  --swiper-theme-color: theme("colors.theme-light-blue") !important;
+}
+
+/* Outubro Rosa */
+html.campaign-outubro-rosa {
+  --campaign-header: #e0709a;
+  --campaign-header-border: #f7c6d8;
+  --campaign-cta: #e85a8c;
+  --campaign-cta-hover: #c44572;
+  --campaign-heading: #e85a8c;
+  --campaign-accent: #e85a8c;
+  --campaign-nav-hover: #e85a8c;
+  --campaign-overlay-from: rgba(232, 90, 140, 0.45);
+  --campaign-overlay-via: rgba(232, 90, 140, 0.2);
+  --campaign-modal-via: #e85a8c;
+  --campaign-modal-to: #c44572;
+}
+
 /* swiper configuration */
 @layer components {
   .bulletInactive {
@@ -18,10 +49,13 @@
   .bulletActive {
     background-color: theme("colors.theme-middle-blue");
   }
-}
 
-:root {
-  --swiper-theme-color: theme("colors.theme-light-blue") !important;
+  .campaign-cta {
+    background-color: var(--campaign-cta);
+  }
+  .campaign-cta:hover {
+    background-color: var(--campaign-cta-hover);
+  }
 }
 
 /* section content size calculations */

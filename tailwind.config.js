@@ -19,6 +19,14 @@ module.exports = {
         "theme-light-white": "#F4FAFD",
         "theme-light-gray": "#F4FAFC",
         "theme-black": "#000000",
+        /* Tokens sazonais — valores reais vêm de CSS vars em :root / .campaign-* */
+        "campaign-header": "var(--campaign-header)",
+        "campaign-header-border": "var(--campaign-header-border)",
+        "campaign-cta": "var(--campaign-cta)",
+        "campaign-cta-hover": "var(--campaign-cta-hover)",
+        "campaign-heading": "var(--campaign-heading)",
+        "campaign-accent": "var(--campaign-accent)",
+        "campaign-nav-hover": "var(--campaign-nav-hover)",
       },
       fontFamily: {
         mont: ["Montserrat", "sans-serif"],
