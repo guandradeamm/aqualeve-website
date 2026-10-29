@@ -24,6 +24,7 @@ module.exports = {
         "campaign-header-border": "var(--campaign-header-border)",
         "campaign-cta": "var(--campaign-cta)",
         "campaign-cta-hover": "var(--campaign-cta-hover)",
+        "campaign-cta-ink": "var(--campaign-cta-ink)",
         "campaign-heading": "var(--campaign-heading)",
         "campaign-accent": "var(--campaign-accent)",
         "campaign-nav-hover": "var(--campaign-nav-hover)",

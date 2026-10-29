@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useCampaign } from "../common/CampaignProvider";
 
-function PinkRibbon({ className = "" }) {
+function AwarenessRibbon({ className = "" }) {
   return (
     <svg
       className={className}
@@ -29,25 +29,36 @@ const Hero = () => {
   return (
     <div
       id={component}
-      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl py-10 lg:py-0"
+      className="content-base sm:content-sm md:content-md lg:content-lg xl:content-xl relative overflow-hidden py-10 lg:py-0"
     >
-      <div className="w-full h-full relative">
-        {hero ? (
-          <div
-            className="pointer-events-none absolute inset-0 z-[1]"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, var(--campaign-overlay-from), var(--campaign-overlay-via), transparent)",
-            }}
-            aria-hidden
+      <div className="absolute inset-0">
+        <div className="relative h-full w-full">
+          <Image
+            priority
+            src="/assets/img/banner.jpg"
+            alt="A água mais pura de Minas"
+            layout="fill"
+            className="object-right-bottom object-cover w-full h-full"
           />
-        ) : null}
-        <div className="w-full h-2/6 flex items-center justify-center absolute inset-0 z-10">
+          {hero ? (
+            <div
+              className="pointer-events-none absolute inset-0 z-[1]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, var(--campaign-overlay-from), var(--campaign-overlay-via), transparent)",
+              }}
+              aria-hidden
+            />
+          ) : null}
+        </div>
+      </div>
+      <div className="relative z-10 h-full">
+        <div className="w-full h-2/6 flex items-center justify-center absolute inset-0">
           <div className="w-4/5 lg:mt-40">
             {hero?.eyebrow ? (
               <p className="mb-3 flex items-center gap-2 font-mont text-sm font-semibold uppercase tracking-[0.2em] text-campaign-heading sm:text-base">
                 {hero.showRibbon ? (
-                  <PinkRibbon className="text-campaign-cta" />
+                  <AwarenessRibbon className="text-campaign-heading" />
                 ) : null}
                 {hero.eyebrow}
               </p>
@@ -64,13 +75,6 @@ const Hero = () => {
             ) : null}
           </div>
         </div>
-        <Image
-          priority
-          src="/assets/img/banner.jpg"
-          alt="A água mais pura de Minas"
-          layout="fill"
-          className="object-right-bottom object-cover w-full h-full"
-        />
       </div>
     </div>
   );

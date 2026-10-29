@@ -226,7 +226,7 @@ function FaleConosco() {
                   type="submit"
                   value="enviar"
                   disabled={isSending}
-                  className="lg:hidden rounded-full uppercase campaign-cta disabled:opacity-60 disabled:cursor-not-allowed lg:w-3/5 w-4/5 lg:h-20 h-8 text-theme-white lg:font-semibold font-medium lg:text-xl text-base font-mont lg:mt-14 mt-4 lg:ml-14 ml-8"
+                  className="lg:hidden rounded-full uppercase campaign-cta text-campaign-cta-ink disabled:opacity-60 disabled:cursor-not-allowed lg:w-3/5 w-4/5 lg:h-20 h-8 lg:font-semibold font-medium lg:text-xl text-base font-mont lg:mt-14 mt-4 lg:ml-14 ml-8"
                 >
                   {isSending ? "enviando..." : "enviar mensagem"}
                 </button>
@@ -257,7 +257,7 @@ function FaleConosco() {
                   type="submit"
                   value="enviar"
                   disabled={isSending}
-                  className="hidden items-center lg:block rounded-full uppercase campaign-cta disabled:opacity-60 disabled:cursor-not-allowed lg:w-4/5 xl:w-3/5 lg:h-1/6 xl:3/5 text-theme-white font-semibold text-xl font-mont lg:mt-8 xl:mt-14"
+                  className="hidden items-center lg:block rounded-full uppercase campaign-cta text-campaign-cta-ink disabled:opacity-60 disabled:cursor-not-allowed lg:w-4/5 xl:w-3/5 lg:h-1/6 xl:3/5 font-semibold text-xl font-mont lg:mt-8 xl:mt-14"
                 >
                   {isSending ? "enviando..." : "enviar mensagem"}
                 </button>

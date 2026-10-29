@@ -6,6 +6,7 @@
 |---|---|
 | `none` / `off` / `false` | Marca original |
 | `outubro-rosa` | Força Outubro Rosa |
+| `novembro-azul` | Força Novembro Azul |
 | `auto` (padrão) | Ativa pela data (`schedule.months`) |
 
 Legado ainda aceito: `NEXT_PUBLIC_OUTUBRO_ROSA=true\|false\|auto`.
