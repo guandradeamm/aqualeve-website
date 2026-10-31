@@ -10,6 +10,7 @@
   --campaign-header-border: #8ecae6;
   --campaign-cta: #ffb703;
   --campaign-cta-hover: #fb8500;
+  --campaign-cta-ink: #ffffff;
   --campaign-heading: #9ecc3d;
   --campaign-accent: #fb8500;
   --campaign-nav-hover: #ffb703;
@@ -33,6 +34,22 @@ html.campaign-outubro-rosa {
   --campaign-overlay-via: rgba(232, 90, 140, 0.2);
   --campaign-modal-via: #e85a8c;
   --campaign-modal-to: #c44572;
+}
+
+/* Novembro Azul */
+html.campaign-novembro-azul {
+  --campaign-header: #023047;
+  --campaign-header-border: #8ecae6;
+  --campaign-cta: #ffb703;
+  --campaign-cta-hover: #fb8500;
+  --campaign-cta-ink: #023047;
+  --campaign-heading: #0e4d8a;
+  --campaign-accent: #0e4d8a;
+  --campaign-nav-hover: #0e4d8a;
+  --campaign-overlay-from: rgba(142, 202, 230, 0.55);
+  --campaign-overlay-via: rgba(142, 202, 230, 0.2);
+  --campaign-modal-via: #023047;
+  --campaign-modal-to: #219ebc;
 }
 
 /* swiper configuration */

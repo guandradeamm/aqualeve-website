@@ -31,6 +31,7 @@ describe("campaigns", () => {
     expect(normalizeMode("false")).toBe("none");
     expect(normalizeMode("auto")).toBe("auto");
     expect(normalizeMode("outubro-rosa")).toBe("outubro-rosa");
+    expect(normalizeMode("novembro-azul")).toBe("novembro-azul");
   });
 
   it("forces brand when campaign is none", () => {
@@ -55,7 +56,21 @@ describe("campaigns", () => {
     expect(resolveActiveCampaign(new Date("2026-10-01T12:00:00"))?.id).toBe(
       "outubro-rosa"
     );
-    expect(resolveActiveCampaign(new Date("2026-11-01T12:00:00"))).toBeNull();
+    expect(resolveActiveCampaign(new Date("2026-11-01T12:00:00"))?.id).toBe(
+      "novembro-azul"
+    );
+    expect(resolveActiveCampaign(new Date("2026-12-01T12:00:00"))).toBeNull();
+  });
+
+  it("forces novembro azul by id", () => {
+    process.env.NEXT_PUBLIC_CAMPAIGN = "novembro-azul";
+    const campaign = resolveActiveCampaign(new Date("2026-10-15T12:00:00"));
+    expect(campaign?.id).toBe("novembro-azul");
+    expect(campaign?.hero?.message).toBe(
+      "Água que nutre. Cuidado que previne."
+    );
+    expect(campaign?.theme?.ctaInk).toBe("#023047");
+    expect(getDocumentTitle(campaign)).toBe("Aqualeve — Novembro Azul");
   });
 
   it("keeps legacy OUTUBRO_ROSA flag", () => {

@@ -489,7 +489,7 @@ function EnvieCurriculo({ isOpen, closeIsOpen }) {
               <button
                 type="submit"
                 disabled={isSending}
-                className="rounded-full campaign-cta px-6 py-3 font-mont text-sm font-semibold uppercase text-theme-white transition disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-full campaign-cta px-6 py-3 font-mont text-sm font-semibold uppercase text-campaign-cta-ink transition disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSending ? "Enviando..." : "Enviar currículo"}
               </button>

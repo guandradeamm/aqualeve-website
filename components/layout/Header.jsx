@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { GrInstagram } from "react-icons/gr";
 import { IoCloseOutline, IoMenuSharp } from "react-icons/io5";
 import { Logo } from "../images";
@@ -22,6 +22,15 @@ const Header = ({ content }) => {
   };
 
   const instagramHref = instagram?.href || "https://www.instagram.com/";
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isOpen]);
 
   return (
     <Fragment>
@@ -63,7 +72,7 @@ const Header = ({ content }) => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Abrir Instagram da Aqualeve em nova aba"
-              className="p-3 campaign-cta text-theme-white flex items-center justify-center rounded-full text-lg
+              className="p-3 campaign-cta text-campaign-cta-ink flex items-center justify-center rounded-full text-lg
               xl:text-xl"
             >
               <GrInstagram />
@@ -71,7 +80,7 @@ const Header = ({ content }) => {
             <button
               type="button"
               onClick={openModal}
-              className="p-3 uppercase campaign-cta text-theme-white rounded-full font-mont font-semibold"
+              className="p-3 uppercase campaign-cta text-campaign-cta-ink rounded-full font-mont font-semibold"
             >
               envie seu currículo
             </button>
@@ -86,8 +95,8 @@ const Header = ({ content }) => {
               type="button"
               className="text-2xl text-theme-white cursor-pointer 
             hover:text-theme-light-white"
-              aria-controls="mobile=menu"
-              aria-expanded="false"
+              aria-controls="mobile-menu"
+              aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
               {!isOpen ? <IoMenuSharp /> : <IoCloseOutline />}
@@ -96,54 +105,57 @@ const Header = ({ content }) => {
         </div>
         <Transition
           show={isOpen}
-          enter="transition ease-out duration-100 transform"
-          enterFrom="opacity-0 scale-95"
-          enterTo="opacity-100 scale-100"
-          leave="transition ease-in duration-75 transform"
-          leaveFrom="opacity-100 scale-100"
-          leaveTo="opacity-0 scale-95"
+          enter="transition-opacity duration-100"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-75"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
           <div
-            className="lg:hidden overflow-hidden relative h-full w-full"
+            className="lg:hidden fixed inset-x-0 bottom-0 top-base z-40 sm:top-sm md:top-md"
             id="mobile-menu"
           >
-            <div className="bg-campaign-header h-full w-full md:h-1/2 md:w-3/5 top-0 right-0 z-40 py-8 flex flex-col absolute rounded-bl-3xl">
-              <div className="flex flex-col items-center">
-                {navigationLinks.map(({ name, id, href }) => (
-                  <div
-                    key={id}
-                    className="text-theme-light-white uppercase hover:text-theme-light-white transition-all ease-in-out mb-8 p-2"
-                  >
-                    <Link passHref href={`${href}`}>
-                      <span
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="font-mont text-xl font-semibold sm:text-2xl md:text-xl"
-                      >
-                        {name}
-                      </span>
-                    </Link>
-                  </div>
-                ))}
-                <a
-                  href={instagramHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsOpen(false)}
-                  className="mb-8 uppercase text-theme-white campaign-cta rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4 inline-flex items-center justify-center gap-3"
+            <button
+              type="button"
+              className="absolute inset-0 bg-theme-black/40"
+              aria-label="Fechar menu"
+              onClick={() => setIsOpen(false)}
+            />
+            <div className="absolute top-0 right-0 flex max-h-full w-full flex-col items-center overflow-y-auto rounded-bl-3xl bg-campaign-header px-6 py-8 md:w-3/5">
+              {navigationLinks.map(({ name, id, href }) => (
+                <div
+                  key={id}
+                  className="mb-6 p-2 text-theme-light-white uppercase"
                 >
-                  siga no instagram
-                  <GrInstagram className="text-theme-white w-5 h-5" aria-hidden />
-                </a>
-                <button
-                  type="button"
-                  onClick={openModal}
-                  className="uppercase text-theme-white campaign-cta rounded-full p-4 font-mont font-semibold text-xl sm:text-2xl md:text-xl sm:p-6 md:p-4"
-                >
-                  envie seu currículo
-                </button>
-              </div>
+                  <Link passHref href={`${href}`}>
+                    <span
+                      onClick={() => setIsOpen(false)}
+                      className="font-mont text-xl font-semibold"
+                    >
+                      {name}
+                    </span>
+                  </Link>
+                </div>
+              ))}
+              <a
+                href={instagramHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="mb-4 inline-flex max-w-full items-center justify-center gap-3 rounded-full campaign-cta px-5 py-3 text-center font-mont text-base font-semibold uppercase text-campaign-cta-ink"
+              >
+                siga no instagram
+                <GrInstagram className="h-5 w-5 text-campaign-cta-ink" aria-hidden />
+              </a>
+              <button
+                type="button"
+                onClick={openModal}
+                className="max-w-full rounded-full campaign-cta px-5 py-3 text-center font-mont text-base font-semibold uppercase text-campaign-cta-ink"
+              >
+                envie seu currículo
+              </button>
             </div>
-            <div className="h-screen w-screen bg-theme-black opacity-40"></div>
           </div>
         </Transition>
       </nav>
