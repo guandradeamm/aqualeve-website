@@ -7,9 +7,20 @@
 | `none` / `off` / `false` | Marca original |
 | `outubro-rosa` | Força Outubro Rosa |
 | `novembro-azul` | Força Novembro Azul |
+| `natal` | Força Natal (pinheiros + splash) |
 | `auto` (padrão) | Ativa pela data (`schedule.months`) |
 
 Legado ainda aceito: `NEXT_PUBLIC_OUTUBRO_ROSA=true\|false\|auto`.
+
+## Calendário (`auto`)
+
+| Mês | Campanha |
+|---|---|
+| 10 | Outubro Rosa |
+| 11 | Novembro Azul |
+| 12 | Natal |
+
+Na virada de novembro → dezembro, com `NEXT_PUBLIC_CAMPAIGN=auto` (ou variável ausente), o site sai de Novembro Azul e entra em Natal automaticamente. Em produção na Vercel, mantenha `auto` (não force `novembro-azul` nem `natal`).
 
 ## Adicionar campanha
 

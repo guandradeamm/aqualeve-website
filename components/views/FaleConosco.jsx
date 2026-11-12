@@ -25,9 +25,10 @@ function FaleConosco() {
   const [feedback, setFeedback] = useState("");
 
   const defaultStyles =
-    "w-full border-theme-middle-blue h-full rounded-xl lg:rounded-3xl border-2 p-2 lg:p-4 xl:p-8 text-xs lg:text-sm placeholder-theme-middle-blue hover:border-theme-green focus:border-theme-green focus:text-theme-green text-theme-middle-blue focus:outline-none active:border-theme-green focus:placeholder-theme-green uppercase";
+    "w-full border-theme-middle-blue rounded-xl lg:rounded-3xl border-2 px-3 py-2 lg:px-5 lg:py-3 text-xs lg:text-sm placeholder-theme-middle-blue hover:border-theme-green focus:border-theme-green focus:text-theme-green text-theme-middle-blue focus:outline-none active:border-theme-green focus:placeholder-theme-green uppercase";
 
   const errorStyles = "border-red-500 focus:border-red-500";
+  const fieldErrorClass = "mt-1.5 mb-3 text-xs leading-snug text-red-600";
 
   const handleChange = (e) => {
     const { name } = e.target;
@@ -48,8 +49,12 @@ function FaleConosco() {
     }
   };
 
-  const fieldClass = (name) =>
-    `${defaultStyles}${errors[name] ? ` ${errorStyles}` : ""}`;
+  const fieldClass = (name, { multiline = false } = {}) =>
+    `${defaultStyles} ${
+      multiline
+        ? "min-h-[7rem] h-28 lg:h-full resize-none"
+        : "h-11 lg:h-14"
+    }${errors[name] ? ` ${errorStyles}` : ""}`;
 
   const sendEmail = async (e) => {
     e.preventDefault();
@@ -142,10 +147,7 @@ function FaleConosco() {
                 className="w-full h-1/2 flex flex-col
                 lg:w-1/2 lg:h-full"
               >
-                <div
-                  className="mt-0
-                lg:mt-14 h-8 lg:h-12 xl:16"
-                >
+                <div className="mt-0 lg:mt-14">
                   <input
                     type="text"
                     name="nome"
@@ -157,57 +159,61 @@ function FaleConosco() {
                     disabled={isSending}
                     required
                   />
+                  {errors.nome ? (
+                    <p className={fieldErrorClass}>{errors.nome}</p>
+                  ) : null}
                 </div>
-                {errors.nome ? (
-                  <p className="mt-1 text-xs text-red-600">{errors.nome}</p>
-                ) : null}
-                <div className="flex items-center justify-between gap-2 mt-2 lg:mt-8 xl:mt-14 w-full h-8 lg:h-12 xl:16">
-                  <input
-                    type="tel"
-                    name="telefone"
-                    value={formulario.telefone}
-                    onChange={handleChange}
-                    placeholder="(00) 99999-9999"
-                    inputMode="numeric"
-                    autoComplete="tel-national"
-                    maxLength={15}
-                    className={fieldClass("telefone")}
-                    aria-invalid={Boolean(errors.telefone)}
-                    disabled={isSending}
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    value={formulario.email}
-                    onChange={handleChange}
-                    placeholder="SEU E-MAIL"
-                    className={fieldClass("email")}
-                    aria-invalid={Boolean(errors.email)}
-                    disabled={isSending}
-                    required
-                  />
+                <div className="mt-3 flex w-full items-start gap-2 lg:mt-8 xl:mt-14">
+                  <div className="min-w-0 w-1/2">
+                    <input
+                      type="tel"
+                      name="telefone"
+                      value={formulario.telefone}
+                      onChange={handleChange}
+                      placeholder="(00) 99999-9999"
+                      inputMode="numeric"
+                      autoComplete="tel-national"
+                      maxLength={15}
+                      className={fieldClass("telefone")}
+                      aria-invalid={Boolean(errors.telefone)}
+                      disabled={isSending}
+                    />
+                    {errors.telefone ? (
+                      <p className={fieldErrorClass}>{errors.telefone}</p>
+                    ) : null}
+                  </div>
+                  <div className="min-w-0 w-1/2">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formulario.email}
+                      onChange={handleChange}
+                      placeholder="SEU E-MAIL"
+                      className={fieldClass("email")}
+                      aria-invalid={Boolean(errors.email)}
+                      disabled={isSending}
+                      required
+                    />
+                    {errors.email ? (
+                      <p className={fieldErrorClass}>{errors.email}</p>
+                    ) : null}
+                  </div>
                 </div>
-                {errors.telefone ? (
-                  <p className="mt-1 text-xs text-red-600">{errors.telefone}</p>
-                ) : null}
-                {errors.email ? (
-                  <p className="mt-1 text-xs text-red-600">{errors.email}</p>
-                ) : null}
-                <div className="mt-2 lg:mt-8 xl:mt-14 lg:h-full">
+                <div className="mt-3 flex min-h-0 flex-1 flex-col lg:mt-8 xl:mt-14">
                   <textarea
                     name="mensagem"
                     value={formulario.mensagem}
                     onChange={handleChange}
                     placeholder="DIGITE SUA MENSAGEM"
-                    className={fieldClass("mensagem")}
+                    className={fieldClass("mensagem", { multiline: true })}
                     aria-invalid={Boolean(errors.mensagem)}
                     disabled={isSending}
                     required
                   />
+                  {errors.mensagem ? (
+                    <p className={fieldErrorClass}>{errors.mensagem}</p>
+                  ) : null}
                 </div>
-                {errors.mensagem ? (
-                  <p className="mt-1 text-xs text-red-600">{errors.mensagem}</p>
-                ) : null}
                 {feedback ? (
                   <p
                     role="status"
