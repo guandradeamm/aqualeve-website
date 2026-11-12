@@ -52,6 +52,63 @@ html.campaign-novembro-azul {
   --campaign-modal-to: #219ebc;
 }
 
+/* Natal — A1 pinheiros + splash (header = verde do logo-natal) */
+html.campaign-natal {
+  --campaign-header: #104c2a;
+  --campaign-header-border: #c1121f;
+  --campaign-cta: #c1121f;
+  --campaign-cta-hover: #9b0c16;
+  --campaign-cta-ink: #ffffff;
+  --campaign-heading: #166534;
+  --campaign-accent: #e63946;
+  --campaign-nav-hover: #0a3a1f;
+  --campaign-overlay-from: rgba(10, 40, 24, 0.72);
+  --campaign-overlay-via: rgba(16, 76, 42, 0.28);
+  --campaign-modal-via: #104c2a;
+  --campaign-modal-to: #c1121f;
+}
+
+html.campaign-natal #navbar {
+  box-shadow: 0 8px 28px rgba(20, 83, 45, 0.35);
+  border-bottom-width: 3px;
+}
+
+/* Logo Natal (tucano com chapéu) — só estilo, sem mudar o Header */
+html.campaign-natal #navbar-logo .m-auto {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+html.campaign-natal #navbar-logo .m-auto > svg {
+  opacity: 0;
+  margin-top: 0 !important;
+}
+
+html.campaign-natal #navbar-logo .m-auto::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/assets/img/logo-natal.jpg") left center / auto 100% no-repeat;
+  pointer-events: none;
+}
+
+/* Hero Natal: texto legível sobre pinheiros */
+html.campaign-natal #hero h1,
+html.campaign-natal #hero h1 span {
+  color: #ffffff !important;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+html.campaign-natal #hero p {
+  color: #f3faf4;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+}
+
+html.campaign-natal #hero p.text-campaign-heading {
+  color: #ff8a8f;
+}
+
 /* swiper configuration */
 @layer components {
   .bulletInactive {

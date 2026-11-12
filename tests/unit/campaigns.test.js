@@ -32,6 +32,7 @@ describe("campaigns", () => {
     expect(normalizeMode("auto")).toBe("auto");
     expect(normalizeMode("outubro-rosa")).toBe("outubro-rosa");
     expect(normalizeMode("novembro-azul")).toBe("novembro-azul");
+    expect(normalizeMode("natal")).toBe("natal");
   });
 
   it("forces brand when campaign is none", () => {
@@ -59,7 +60,20 @@ describe("campaigns", () => {
     expect(resolveActiveCampaign(new Date("2026-11-01T12:00:00"))?.id).toBe(
       "novembro-azul"
     );
-    expect(resolveActiveCampaign(new Date("2026-12-01T12:00:00"))).toBeNull();
+    expect(resolveActiveCampaign(new Date("2026-12-01T12:00:00"))?.id).toBe(
+      "natal"
+    );
+  });
+
+  it("forces natal by id with pinheiros hero banner", () => {
+    process.env.NEXT_PUBLIC_CAMPAIGN = "natal";
+    const campaign = resolveActiveCampaign(new Date("2026-11-12T12:00:00"));
+    expect(campaign?.id).toBe("natal");
+    expect(campaign?.hero?.message).toBe(
+      "Da nascente ao coração: um Natal com a pureza de Minas."
+    );
+    expect(campaign?.hero?.imageSrc).toBe("/assets/img/banner-natal.jpg");
+    expect(getDocumentTitle(campaign)).toBe("Aqualeve — Feliz Natal");
   });
 
   it("forces novembro azul by id", () => {

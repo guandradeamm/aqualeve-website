@@ -35,7 +35,7 @@ const Hero = () => {
         <div className="relative h-full w-full">
           <Image
             priority
-            src="/assets/img/banner.jpg"
+            src={hero?.imageSrc || "/assets/img/banner.jpg"}
             alt="A água mais pura de Minas"
             layout="fill"
             className="object-right-bottom object-cover w-full h-full"
