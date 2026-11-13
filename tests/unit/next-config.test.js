@@ -19,3 +19,23 @@ describe("next image hosts", () => {
     );
   });
 });
+
+describe("security headers", () => {
+  it("applies baseline headers on all routes", async () => {
+    const routes = await nextConfig.headers();
+    expect(routes).toHaveLength(1);
+    expect(routes[0].source).toBe("/:path*");
+
+    const headers = Object.fromEntries(
+      routes[0].headers.map(({ key, value }) => [key, value])
+    );
+
+    expect(headers["X-Frame-Options"]).toBe("DENY");
+    expect(headers["X-Content-Type-Options"]).toBe("nosniff");
+    expect(headers["Referrer-Policy"]).toBe("strict-origin-when-cross-origin");
+    expect(headers["Permissions-Policy"]).toBe(
+      "camera=(), microphone=(), geolocation=()"
+    );
+    expect(headers["Strict-Transport-Security"]).toContain("max-age=");
+  });
+});

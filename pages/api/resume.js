@@ -1,5 +1,6 @@
 import { CONTACT_EMAIL } from "../../lib/contact";
 import { getSmtpConfig, sendResumeEmail } from "../../lib/mail";
+import { enforceRequestGuards } from "../../lib/request-guard";
 import {
   normalizeResumePayload,
   validateResumePayload,
@@ -17,6 +18,10 @@ export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if (!enforceRequestGuards(req, res, { name: "resume" })) {
+    return;
   }
 
   const payload = normalizeResumePayload(req.body);

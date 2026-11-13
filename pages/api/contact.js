@@ -9,11 +9,16 @@ import {
   resolveRequestOrigin,
 } from "../../lib/formsubmit";
 import { getSmtpConfig, sendContactEmail } from "../../lib/mail";
+import { enforceRequestGuards } from "../../lib/request-guard";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if (!enforceRequestGuards(req, res, { name: "contact" })) {
+    return;
   }
 
   const payload = normalizeContactPayload(req.body);
