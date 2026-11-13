@@ -3,9 +3,14 @@
  */
 
 import handler from "../../pages/api/contact";
+import { resetRateLimitStore } from "../../lib/request-guard";
 
-function createMocks({ method = "POST", body = {} } = {}) {
-  const req = { method, body, headers: {} };
+function createMocks({
+  method = "POST",
+  body = {},
+  headers = { origin: "http://localhost:3000" },
+} = {}) {
+  const req = { method, body, headers };
   const res = {
     statusCode: 200,
     headers: {},
@@ -25,17 +30,26 @@ function createMocks({ method = "POST", body = {} } = {}) {
   return { req, res };
 }
 
+const validBody = {
+  nome: "Maria",
+  telefone: "31999999999",
+  email: "maria@example.com",
+  mensagem: "Quero um orçamento completo.",
+};
+
 describe("/api/contact", () => {
   const originalFetch = global.fetch;
 
   beforeEach(() => {
     global.fetch = jest.fn();
     process.env.CONTACT_PROVIDER = "formsubmit";
+    resetRateLimitStore();
   });
 
   afterEach(() => {
     global.fetch = originalFetch;
     delete process.env.CONTACT_PROVIDER;
+    resetRateLimitStore();
     jest.restoreAllMocks();
   });
 
@@ -45,6 +59,18 @@ describe("/api/contact", () => {
 
     expect(res.statusCode).toBe(405);
     expect(res.body.error).toMatch(/method not allowed/i);
+  });
+
+  it("rejects unknown origins before forwarding", async () => {
+    const { req, res } = createMocks({
+      body: validBody,
+      headers: { origin: "https://evil.example" },
+    });
+    await handler(req, res);
+
+    expect(res.statusCode).toBe(403);
+    expect(res.body.code).toBe("ORIGIN_FORBIDDEN");
+    expect(global.fetch).not.toHaveBeenCalled();
   });
 
   it("rejects invalid payloads", async () => {
@@ -65,14 +91,9 @@ describe("/api/contact", () => {
     });
 
     const { req, res } = createMocks({
-      body: {
-        nome: "Maria",
-        telefone: "31999999999",
-        email: "maria@example.com",
-        mensagem: "Quero um orçamento completo.",
-      },
+      body: validBody,
+      headers: { origin: "http://localhost:3000", host: "localhost:3000" },
     });
-    req.headers = { origin: "http://localhost:3000", host: "localhost:3000" };
 
     await handler(req, res);
 
@@ -109,8 +130,8 @@ describe("/api/contact", () => {
         email: "maria@example.com",
         mensagem: "Quero um orçamento completo.",
       },
+      headers: { origin: "http://localhost:3000", host: "localhost:3000" },
     });
-    req.headers = { host: "localhost:3000" };
 
     await handler(req, res);
 
@@ -131,12 +152,38 @@ describe("/api/contact", () => {
         email: "maria@example.com",
         mensagem: "Quero um orçamento completo.",
       },
+      headers: { origin: "http://localhost:3000" },
     });
-    req.headers = {};
 
     await handler(req, res);
 
     expect(res.statusCode).toBe(502);
     expect(res.body.error).toMatch(/upstream error/i);
+  });
+
+  it("rate-limits bursts from the same client", async () => {
+    global.fetch.mockResolvedValue({
+      ok: true,
+      json: async () => ({ success: "true" }),
+    });
+
+    const headers = {
+      origin: "http://localhost:3000",
+      "x-forwarded-for": "198.51.100.20",
+    };
+
+    for (let i = 0; i < 8; i += 1) {
+      const { req, res } = createMocks({ body: validBody, headers });
+      await handler(req, res);
+      expect(res.statusCode).toBe(200);
+    }
+
+    const { req, res } = createMocks({ body: validBody, headers });
+    await handler(req, res);
+
+    expect(res.statusCode).toBe(429);
+    expect(res.body.code).toBe("RATE_LIMITED");
+    expect(res.headers["Retry-After"]).toBeTruthy();
+    expect(global.fetch).toHaveBeenCalledTimes(8);
   });
 });
